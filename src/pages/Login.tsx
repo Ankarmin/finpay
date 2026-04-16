@@ -75,7 +75,7 @@ export const LoginPage = () => {
           <img
             src="/favicon.png"
             alt="FinPay"
-            className="mb-3 h-20 w-20 drop-shadow-lg"
+            className="mb-3 h-20 w-20 drop-shadow-lg brightness-0 invert"
           />
           <span className="text-2xl font-bold tracking-tight text-primary-foreground">
             FinPay
