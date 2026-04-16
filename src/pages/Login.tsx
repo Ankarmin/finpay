@@ -45,8 +45,8 @@ export const LoginPage = () => {
       <div className="w-full max-w-sm animate-fade-in">
         {/* Logo */}
         <div className="mb-8 text-center">
-          <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-primary/80 p-3 shadow-lg">
-            <img src="/favicon.png" alt="FinPay Logo" className="h-full w-full object-contain" />
+          <div className="mx-auto mb-4 flex h-28 w-28 items-center justify-center rounded-2xl bg-gradient-to-br from-primary to-primary/80 shadow-lg overflow-hidden">
+            <img src="/favicon.png" alt="FinPay Logo" className="h-24 w-24 object-contain" />
           </div>
           <h1 className="text-2xl font-bold text-foreground">FinPay</h1>
           <p className="mt-1 text-sm text-muted-foreground">Pagos seguros y rápidos</p>

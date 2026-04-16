@@ -23,7 +23,7 @@ const RecoveryPage = () => {
           <ArrowLeft className="h-5 w-5 text-foreground" />
         </button>
         <div className="flex items-center gap-2">
-          <img src="/favicon.png" alt="FinPay" className="h-8 w-8" />
+          <img src="/favicon.png" alt="FinPay" className="h-10 w-10" />
           <span className="text-lg font-bold text-foreground">FinPay</span>
         </div>
       </div>
