@@ -17,9 +17,16 @@ const RecoveryPage = () => {
 
   return (
     <div className="flex min-h-screen flex-col bg-background px-6 py-8">
-      <button onClick={() => navigate('/')} className="mb-8 flex h-10 w-10 items-center justify-center rounded-xl hover:bg-muted">
-        <ArrowLeft className="h-5 w-5 text-foreground" />
-      </button>
+      {/* Logo */}
+      <div className="mb-6 flex items-center gap-3">
+        <button onClick={() => navigate('/')} className="flex h-10 w-10 items-center justify-center rounded-xl hover:bg-muted">
+          <ArrowLeft className="h-5 w-5 text-foreground" />
+        </button>
+        <div className="flex items-center gap-2">
+          <img src="/favicon.png" alt="FinPay" className="h-8 w-8" />
+          <span className="text-lg font-bold text-foreground">FinPay</span>
+        </div>
+      </div>
 
       <div className="flex-1 animate-fade-in">
         {sent ? (
