@@ -50,7 +50,7 @@ export const ReceiptScreen = ({ data, transactionCode, balanceAfter, status = 'c
     <div className="flex flex-col items-center px-4 py-6 animate-fade-in">
       {/* Logo */}
       <div className="mb-4 flex items-center gap-2">
-        <img src="/favicon.png" alt="FinPay" className="h-8 w-8" />
+        <img src="/favicon.png" alt="FinPay" className="h-10 w-10" />
         <span className="text-lg font-bold text-foreground">FinPay</span>
       </div>
 
