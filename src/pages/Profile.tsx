@@ -20,7 +20,7 @@ const ProfilePage = () => {
   return (
     <AppLayout>
       <PageHeader title="Perfil" showBack={false} />
-      <div className="px-4 py-4 mx-auto max-w-lg space-y-4 animate-fade-in">
+      <div className="mx-auto max-w-3xl space-y-4 px-4 py-4 animate-fade-in sm:px-6 lg:px-8">
         <div className="flex flex-col items-center py-4">
           <div className="flex h-20 w-20 items-center justify-center rounded-full bg-primary text-2xl font-bold text-primary-foreground">JP</div>
           <h2 className="mt-3 text-lg font-bold text-foreground">Juan Pérez</h2>
@@ -33,11 +33,11 @@ const ProfilePage = () => {
             <button
               key={i}
               onClick={() => navigate(item.path)}
-              className="flex w-full items-center gap-3 px-4 py-3.5 text-left transition-colors hover:bg-muted/50 active:bg-muted border-b border-border last:border-0"
+              className="flex w-full items-start gap-3 border-b border-border px-4 py-3.5 text-left transition-colors hover:bg-muted/50 active:bg-muted last:border-0 sm:items-center"
             >
-              <item.icon className="h-5 w-5 text-muted-foreground" />
-              <span className="flex-1 text-sm font-medium text-foreground">{item.label}</span>
-              <ChevronRight className="h-4 w-4 text-muted-foreground" />
+              <item.icon className="mt-0.5 h-5 w-5 shrink-0 text-muted-foreground sm:mt-0" />
+              <span className="min-w-0 flex-1 break-words text-sm font-medium text-foreground">{item.label}</span>
+              <ChevronRight className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground sm:mt-0" />
             </button>
           ))}
         </div>

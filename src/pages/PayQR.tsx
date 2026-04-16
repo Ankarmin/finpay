@@ -77,7 +77,7 @@ const PayQRPage = () => {
     return (
       <AppLayout showNav={false}>
         <PageHeader title="Confirmar pago" onBack={() => setStep('form')} />
-        <div className="px-4 py-4 mx-auto max-w-lg space-y-4 animate-fade-in">
+        <div className="mx-auto max-w-3xl space-y-4 px-4 py-4 animate-fade-in sm:px-6 lg:px-8">
           <PaymentSummary data={paymentData} showBiometric={parseFloat(amount) >= 500} />
           <div className="flex items-center justify-between rounded-lg bg-accent p-3 text-sm">
             <span className="text-muted-foreground">Saldo disponible</span>
@@ -93,10 +93,10 @@ const PayQRPage = () => {
   return (
     <AppLayout showNav={false}>
       <PageHeader title="Pago por QR" subtitle="Escanea un código QR para pagar" />
-      <div className="px-4 py-4 mx-auto max-w-lg space-y-4 animate-fade-in">
+      <div className="mx-auto max-w-3xl space-y-4 px-4 py-4 animate-fade-in sm:px-6 lg:px-8">
         {!scanned ? (
           <div className="flex flex-col items-center">
-            <div className="relative flex h-64 w-64 items-center justify-center rounded-2xl border-2 border-dashed border-primary/30 bg-accent">
+            <div className="relative flex aspect-square w-full max-w-[18rem] items-center justify-center rounded-2xl border-2 border-dashed border-primary/30 bg-accent sm:max-w-[20rem]">
               <QrCode className="h-16 w-16 text-primary/40" />
               <div className="absolute inset-4 rounded-xl border-2 border-primary/20" />
             </div>
@@ -108,10 +108,10 @@ const PayQRPage = () => {
         ) : (
           <div className="space-y-4">
             <div className="flex items-center gap-3 rounded-xl bg-accent p-3 fintech-shadow">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
                 <QrCode className="h-5 w-5" />
               </div>
-              <div>
+              <div className="min-w-0">
                 <p className="text-sm font-medium text-foreground">Tienda ABC</p>
                 <p className="text-xs text-muted-foreground">Código verificado</p>
               </div>

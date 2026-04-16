@@ -80,7 +80,7 @@ const PayPhonePage = () => {
     return (
       <AppLayout showNav={false}>
         <PageHeader title="Confirmar pago" onBack={() => setStep('form')} />
-        <div className="px-4 py-4 mx-auto max-w-lg space-y-4 animate-fade-in">
+        <div className="mx-auto max-w-3xl space-y-4 px-4 py-4 animate-fade-in sm:px-6 lg:px-8">
           <PaymentSummary data={paymentData} showBiometric={parseFloat(amount) >= 500} />
           <div className="flex items-center justify-between rounded-lg bg-accent p-3 text-sm">
             <span className="text-muted-foreground">Saldo disponible</span>
@@ -98,7 +98,7 @@ const PayPhonePage = () => {
   return (
       <AppLayout showNav={false}>
         <PageHeader title="Pago por celular" subtitle="Envía dinero a un contacto" />
-        <div className="px-4 py-4 mx-auto max-w-lg space-y-4 animate-fade-in">
+        <div className="mx-auto max-w-3xl space-y-4 px-4 py-4 animate-fade-in sm:px-6 lg:px-8">
           {favorites.length > 0 && (
           <div>
             <p className="mb-2 text-xs font-medium text-muted-foreground">Contactos frecuentes</p>
@@ -107,12 +107,12 @@ const PayPhonePage = () => {
                 <button
                   key={c.id}
                   onClick={() => { setSelectedContact(c.id); setPhone(c.phone || ''); }}
-                  className={cn("flex flex-col items-center gap-1 shrink-0 rounded-xl px-3 py-2 transition-all active:scale-95", selectedContact === c.id ? "bg-accent ring-2 ring-primary" : "hover:bg-muted")}
+                  className={cn("flex shrink-0 flex-col items-center gap-1 rounded-xl px-3 py-2 text-center transition-all active:scale-95", selectedContact === c.id ? "bg-accent ring-2 ring-primary" : "hover:bg-muted")}
                 >
                   <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary">
                     {c.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
                   </div>
-                  <span className="text-xs text-foreground">{c.name.split(' ')[0]}</span>
+                  <span className="max-w-[72px] truncate text-xs text-foreground">{c.name.split(' ')[0]}</span>
                 </button>
               ))}
             </div>

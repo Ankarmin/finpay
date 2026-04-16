@@ -195,7 +195,7 @@ const PayInternationalPage = () => {
       <AppLayout showNav={false}>
         <PageHeader title="Comprobante" showBack={false} />
         <div className="animate-fade-in px-4 py-6">
-          <div className="mx-auto max-w-lg rounded-3xl border border-border bg-card p-5 fintech-shadow-lg">
+          <div className="mx-auto max-w-3xl rounded-3xl border border-border bg-card p-5 fintech-shadow-lg sm:p-6">
             <div className="flex flex-col items-center text-center">
               <div className="mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-amber-50 text-warning">
                 <Clock className="h-9 w-9" />
@@ -208,48 +208,48 @@ const PayInternationalPage = () => {
             </div>
 
             <div className="mt-6 space-y-3 rounded-2xl border border-border bg-background p-4">
-              <div className="flex items-center justify-between gap-3 text-sm">
+              <div className="flex flex-col gap-1.5 text-sm sm:flex-row sm:items-start sm:justify-between sm:gap-3">
                 <span className="text-muted-foreground">Código</span>
-                <button type="button" onClick={handleCopyCode} className="flex items-center gap-1 font-medium text-primary">
-                  <span>{transactionCode}</span>
+                <button type="button" onClick={handleCopyCode} className="flex min-w-0 items-center gap-1 font-medium text-primary sm:max-w-[62%] sm:self-start">
+                  <span className="min-w-0 break-words text-left sm:text-right">{transactionCode}</span>
                   <Copy className="h-3.5 w-3.5" />
                 </button>
               </div>
-              <div className="flex items-center justify-between gap-3 text-sm">
+              <div className="flex flex-col gap-1.5 text-sm sm:flex-row sm:items-start sm:justify-between sm:gap-3">
                 <span className="text-muted-foreground">Destinatario</span>
-                <span className="text-right font-medium text-foreground">{recipientName}</span>
+                <span className="break-words text-left font-medium text-foreground sm:max-w-[62%] sm:text-right">{recipientName}</span>
               </div>
-              <div className="flex items-center justify-between gap-3 text-sm">
+              <div className="flex flex-col gap-1.5 text-sm sm:flex-row sm:items-start sm:justify-between sm:gap-3">
                 <span className="text-muted-foreground">Cuenta</span>
-                <span className="text-right font-medium text-foreground">{accountNumber}</span>
+                <span className="break-words text-left font-medium text-foreground sm:max-w-[62%] sm:text-right">{accountNumber}</span>
               </div>
-              <div className="flex items-center justify-between gap-3 text-sm">
+              <div className="flex flex-col gap-1.5 text-sm sm:flex-row sm:items-start sm:justify-between sm:gap-3">
                 <span className="text-muted-foreground">Banco destino</span>
-                <span className="text-right font-medium text-foreground">{selectedBank.name}</span>
+                <span className="break-words text-left font-medium text-foreground sm:max-w-[62%] sm:text-right">{selectedBank.name}</span>
               </div>
-              <div className="flex items-center justify-between gap-3 text-sm">
+              <div className="flex flex-col gap-1.5 text-sm sm:flex-row sm:items-start sm:justify-between sm:gap-3">
                 <span className="text-muted-foreground">País</span>
-                <span className="text-right font-medium text-foreground">{selectedCountry.name}</span>
+                <span className="break-words text-left font-medium text-foreground sm:max-w-[62%] sm:text-right">{selectedCountry.name}</span>
               </div>
-              <div className="flex items-center justify-between gap-3 text-sm">
+              <div className="flex flex-col gap-1.5 text-sm sm:flex-row sm:items-start sm:justify-between sm:gap-3">
                 <span className="text-muted-foreground">Tipo de cambio</span>
-                <span className="text-right font-medium text-foreground">1 PEN = {formatCurrency(selectedBank.exchangeRate, selectedBank.currency)}</span>
+                <span className="break-words text-left font-medium text-foreground sm:max-w-[62%] sm:text-right">1 PEN = {formatCurrency(selectedBank.exchangeRate, selectedBank.currency)}</span>
               </div>
-              <div className="flex items-center justify-between gap-3 text-sm">
+              <div className="flex flex-col gap-1.5 text-sm sm:flex-row sm:items-start sm:justify-between sm:gap-3">
                 <span className="text-muted-foreground">Comisión del banco</span>
-                <span className="text-right font-medium text-foreground">{formatCurrency(commission, selectedBank.currency)}</span>
+                <span className="break-words text-left font-medium text-foreground sm:max-w-[62%] sm:text-right">{formatCurrency(commission, selectedBank.currency)}</span>
               </div>
-              <div className="flex items-center justify-between gap-3 text-sm">
+              <div className="flex flex-col gap-1.5 text-sm sm:flex-row sm:items-start sm:justify-between sm:gap-3">
                 <span className="text-muted-foreground">Fecha</span>
-                <span className="text-right font-medium text-foreground">{receiptDate.toLocaleDateString('es-PE')}</span>
+                <span className="break-words text-left font-medium text-foreground sm:max-w-[62%] sm:text-right">{receiptDate.toLocaleDateString('es-PE')}</span>
               </div>
-              <div className="flex items-center justify-between gap-3 text-sm">
+              <div className="flex flex-col gap-1.5 text-sm sm:flex-row sm:items-start sm:justify-between sm:gap-3">
                 <span className="text-muted-foreground">Hora</span>
-                <span className="text-right font-medium text-foreground">{receiptDate.toLocaleTimeString('es-PE', { hour: '2-digit', minute: '2-digit' })}</span>
+                <span className="break-words text-left font-medium text-foreground sm:max-w-[62%] sm:text-right">{receiptDate.toLocaleTimeString('es-PE', { hour: '2-digit', minute: '2-digit' })}</span>
               </div>
-              <div className="flex items-center justify-between gap-3 border-t border-border pt-3 text-sm">
+              <div className="flex flex-col gap-1.5 border-t border-border pt-3 text-sm sm:flex-row sm:items-start sm:justify-between sm:gap-3">
                 <span className="font-semibold text-foreground">Saldo restante</span>
-                <span className="text-right font-bold text-primary">{formatCurrency(balanceAfter, mockAccount.currency)}</span>
+                <span className="break-words text-left font-bold text-primary sm:max-w-[62%] sm:text-right">{formatCurrency(balanceAfter, mockAccount.currency)}</span>
               </div>
             </div>
 
@@ -275,7 +275,7 @@ const PayInternationalPage = () => {
     return (
       <AppLayout showNav={false}>
         <PageHeader title="Confirmar transferencia" onBack={handleBack} />
-        <div className="mx-auto max-w-lg space-y-4 px-4 py-4 animate-fade-in">
+        <div className="mx-auto max-w-3xl space-y-4 px-4 py-4 animate-fade-in sm:px-6 lg:px-8">
           <div className="flex items-center gap-2 rounded-lg border border-warning/30 bg-amber-50 p-3 text-xs text-warning fintech-shadow">
             <Clock className="h-4 w-4 shrink-0" />
             Transferencia internacional sujeta a validación del banco destino. Se requerirá verificación biométrica.
@@ -287,37 +287,37 @@ const PayInternationalPage = () => {
               Resumen de transferencia
             </div>
             <div className="space-y-3 text-sm">
-              <div className="flex items-center justify-between gap-3">
+              <div className="flex flex-col gap-1.5 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
                 <span className="text-muted-foreground">Destinatario</span>
-                <span className="text-right font-medium text-foreground">{recipientName}</span>
+                <span className="break-words text-left font-medium text-foreground sm:max-w-[62%] sm:text-right">{recipientName}</span>
               </div>
-              <div className="flex items-center justify-between gap-3">
+              <div className="flex flex-col gap-1.5 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
                 <span className="text-muted-foreground">Cuenta o IBAN</span>
-                <span className="text-right font-medium text-foreground">{accountNumber}</span>
+                <span className="break-words text-left font-medium text-foreground sm:max-w-[62%] sm:text-right">{accountNumber}</span>
               </div>
-              <div className="flex items-center justify-between gap-3">
+              <div className="flex flex-col gap-1.5 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
                 <span className="text-muted-foreground">Banco</span>
-                <span className="text-right font-medium text-foreground">{selectedBank.name}</span>
+                <span className="break-words text-left font-medium text-foreground sm:max-w-[62%] sm:text-right">{selectedBank.name}</span>
               </div>
-              <div className="flex items-center justify-between gap-3">
+              <div className="flex flex-col gap-1.5 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
                 <span className="text-muted-foreground">País destino</span>
-                <span className="text-right font-medium text-foreground">{selectedCountry.name}</span>
+                <span className="break-words text-left font-medium text-foreground sm:max-w-[62%] sm:text-right">{selectedCountry.name}</span>
               </div>
-              <div className="flex items-center justify-between gap-3">
+              <div className="flex flex-col gap-1.5 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
                 <span className="text-muted-foreground">Tipo de cambio</span>
-                <span className="text-right font-medium text-foreground">1 PEN = {formatCurrency(selectedBank.exchangeRate, selectedBank.currency)}</span>
+                <span className="break-words text-left font-medium text-foreground sm:max-w-[62%] sm:text-right">1 PEN = {formatCurrency(selectedBank.exchangeRate, selectedBank.currency)}</span>
               </div>
-              <div className="flex items-center justify-between gap-3">
+              <div className="flex flex-col gap-1.5 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
                 <span className="text-muted-foreground">Comisión del banco</span>
-                <span className="text-right font-medium text-foreground">{formatCurrency(commission, selectedBank.currency)}</span>
+                <span className="break-words text-left font-medium text-foreground sm:max-w-[62%] sm:text-right">{formatCurrency(commission, selectedBank.currency)}</span>
               </div>
-              <div className="flex items-center justify-between gap-3">
+              <div className="flex flex-col gap-1.5 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
                 <span className="text-muted-foreground">Monto a debitar</span>
-                <span className="text-right font-medium text-foreground">{formatCurrency(amountSent, mockAccount.currency)}</span>
+                <span className="break-words text-left font-medium text-foreground sm:max-w-[62%] sm:text-right">{formatCurrency(amountSent, mockAccount.currency)}</span>
               </div>
-              <div className="flex items-center justify-between gap-3 border-t border-border pt-3">
+              <div className="flex flex-col gap-1.5 border-t border-border pt-3 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
                 <span className="font-semibold text-foreground">Monto estimado a recibir</span>
-                <span className="text-right font-bold text-primary">{formatCurrency(amountReceived, selectedBank.currency)}</span>
+                <span className="break-words text-left font-bold text-primary sm:max-w-[62%] sm:text-right">{formatCurrency(amountReceived, selectedBank.currency)}</span>
               </div>
             </div>
           </div>
@@ -345,10 +345,10 @@ const PayInternationalPage = () => {
         subtitle="Envía dinero al extranjero desde un solo flujo"
         onBack={step === 'entry' ? undefined : handleBack}
       />
-      <div key={step} className={cn('mx-auto max-w-lg space-y-4 px-4 py-4', transitionClass)}>
+      <div key={step} className={cn('mx-auto max-w-5xl space-y-4 px-4 py-4 sm:px-6 lg:px-8', transitionClass)}>
         {step === 'entry' && (
           <>
-            <div className="fintech-gradient rounded-3xl p-5 text-primary-foreground fintech-shadow-lg">
+             <div className="fintech-gradient rounded-3xl p-5 text-primary-foreground fintech-shadow-lg sm:p-6">
               <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-white/15">
                 <Globe className="h-7 w-7" />
               </div>
@@ -356,7 +356,7 @@ const PayInternationalPage = () => {
               <p className="mt-2 text-sm text-primary-foreground/80">
                 Selecciona país, banco y destinatario para completar una sola transferencia internacional.
               </p>
-              <div className="mt-4 grid grid-cols-3 gap-2 text-xs text-primary-foreground/80">
+               <div className="mt-4 grid grid-cols-1 gap-2 text-xs text-primary-foreground/80 sm:grid-cols-3">
                 <div className="flex min-h-[68px] items-center justify-center rounded-2xl bg-white/10 px-3 py-2 text-center leading-tight">4 países</div>
                 <div className="flex min-h-[68px] items-center justify-center rounded-2xl bg-white/10 px-3 py-2 text-center leading-tight">8 bancos</div>
                 <div className="flex min-h-[68px] items-center justify-center rounded-2xl bg-white/10 px-3 py-2 text-center leading-tight">Cambio en vivo</div>
@@ -398,15 +398,15 @@ const PayInternationalPage = () => {
                   onClick={() => handleCountrySelect(country.id)}
                   className="flex w-full items-center gap-4 rounded-2xl border border-border bg-card p-4 text-left transition-all hover:border-primary/30 hover:bg-accent/40 active:scale-[0.98] fintech-shadow"
                 >
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-2xl">
-                    <span aria-hidden="true">{country.flag}</span>
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-sm font-semibold text-foreground">{country.name}</p>
-                    <p className="text-xs text-muted-foreground">
-                      {country.banks.length} bancos disponibles · {country.currency}
-                    </p>
-                  </div>
+               <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-2xl">
+                 <span aria-hidden="true">{country.flag}</span>
+               </div>
+               <div className="min-w-0 flex-1">
+                 <p className="text-sm font-semibold text-foreground">{country.name}</p>
+                 <p className="break-words text-xs text-muted-foreground">
+                   {country.banks.length} bancos disponibles · {country.currency}
+                 </p>
+               </div>
                   <ChevronRight className="h-4 w-4 text-muted-foreground" />
                 </button>
               ))}
@@ -416,15 +416,15 @@ const PayInternationalPage = () => {
 
         {step === 'banks' && selectedCountry && (
           <>
-            <div className="flex items-center gap-4 rounded-2xl border border-border bg-card p-4 fintech-shadow">
-              <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 text-2xl">
-                <span aria-hidden="true">{selectedCountry.flag}</span>
-              </div>
-              <div>
-                <p className="text-sm font-semibold text-foreground">{selectedCountry.name}</p>
-                <p className="text-xs text-muted-foreground">Moneda destino: {selectedCountry.currency}</p>
-              </div>
-            </div>
+             <div className="flex items-center gap-4 rounded-2xl border border-border bg-card p-4 fintech-shadow">
+               <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-primary/10 text-2xl">
+                 <span aria-hidden="true">{selectedCountry.flag}</span>
+               </div>
+               <div className="min-w-0">
+                 <p className="text-sm font-semibold text-foreground">{selectedCountry.name}</p>
+                 <p className="break-words text-xs text-muted-foreground">Moneda destino: {selectedCountry.currency}</p>
+               </div>
+             </div>
 
             <div className="space-y-3">
               {selectedCountry.banks.map((bank) => (
@@ -432,17 +432,17 @@ const PayInternationalPage = () => {
                   key={bank.id}
                   type="button"
                   onClick={() => handleBankSelect(bank.id)}
-                  className="flex w-full items-center gap-4 rounded-2xl border border-border bg-card p-4 text-left transition-all hover:border-primary/30 hover:bg-accent/40 active:scale-[0.98] fintech-shadow"
-                >
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-50 text-sm font-bold text-indigo-600">
-                    {getBankBadge(bank.name)}
-                  </div>
-                  <div className="flex-1">
-                    <p className="text-sm font-semibold text-foreground">{bank.name}</p>
-                    <p className="text-xs text-muted-foreground">
-                      1 PEN <ArrowRight className="mx-1 inline h-3.5 w-3.5" /> {formatCurrency(bank.exchangeRate, bank.currency)}
-                    </p>
-                  </div>
+                 className="flex w-full min-w-0 items-center gap-4 rounded-2xl border border-border bg-card p-4 text-left transition-all hover:border-primary/30 hover:bg-accent/40 active:scale-[0.98] fintech-shadow"
+               >
+                 <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-indigo-50 text-sm font-bold text-indigo-600">
+                   {getBankBadge(bank.name)}
+                 </div>
+                 <div className="min-w-0 flex-1">
+                   <p className="break-words text-sm font-semibold text-foreground">{bank.name}</p>
+                   <p className="break-words text-xs text-muted-foreground">
+                     1 PEN <ArrowRight className="mx-1 inline h-3.5 w-3.5" /> {formatCurrency(bank.exchangeRate, bank.currency)}
+                   </p>
+                 </div>
                   <Landmark className="h-4 w-4 text-muted-foreground" />
                 </button>
               ))}
@@ -453,18 +453,18 @@ const PayInternationalPage = () => {
         {step === 'details' && selectedCountry && selectedBank && (
           <>
             <div className="rounded-2xl border border-border bg-card p-4 fintech-shadow">
-              <div className="flex items-start gap-4">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-indigo-50 text-sm font-bold text-indigo-600">
-                  {getBankBadge(selectedBank.name)}
-                </div>
-                <div className="flex-1">
-                  <p className="text-base font-semibold text-foreground">{selectedBank.name}</p>
-                  <p className="text-sm text-muted-foreground">{selectedCountry.name}</p>
-                  {selectedBank.swiftCode && (
-                    <p className="mt-1 text-xs text-muted-foreground">SWIFT: {selectedBank.swiftCode}</p>
-                  )}
-                </div>
-              </div>
+               <div className="flex items-start gap-4">
+                 <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-indigo-50 text-sm font-bold text-indigo-600">
+                   {getBankBadge(selectedBank.name)}
+                 </div>
+                 <div className="min-w-0 flex-1">
+                   <p className="break-words text-base font-semibold text-foreground">{selectedBank.name}</p>
+                   <p className="text-sm text-muted-foreground">{selectedCountry.name}</p>
+                   {selectedBank.swiftCode && (
+                     <p className="mt-1 break-words text-xs text-muted-foreground">SWIFT: {selectedBank.swiftCode}</p>
+                   )}
+                 </div>
+               </div>
             </div>
 
             <div className="rounded-2xl border border-border bg-card p-4 fintech-shadow">
@@ -473,18 +473,18 @@ const PayInternationalPage = () => {
                 Detalle de cambio
               </div>
               <div className="space-y-3 text-sm">
-                <div className="flex items-center justify-between gap-3">
-                  <span className="text-muted-foreground">Tipo de cambio</span>
-                  <span className="text-right font-medium text-foreground">1 PEN = {formatCurrency(selectedBank.exchangeRate, selectedBank.currency)}</span>
-                </div>
-                <div className="flex items-center justify-between gap-3">
-                  <span className="text-muted-foreground">Comisión del banco</span>
-                  <span className="text-right font-medium text-foreground">{formatCurrency(commission, selectedBank.currency)}</span>
-                </div>
-                <div className="flex items-center justify-between gap-3">
-                  <span className="text-muted-foreground">Actualizado</span>
-                  <span className="text-right font-medium text-foreground">{formatRateTimestamp(selectedBank.updatedAt)}</span>
-                </div>
+                 <div className="flex flex-col gap-1.5 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
+                   <span className="text-muted-foreground">Tipo de cambio</span>
+                   <span className="break-words text-left font-medium text-foreground sm:max-w-[62%] sm:text-right">1 PEN = {formatCurrency(selectedBank.exchangeRate, selectedBank.currency)}</span>
+                 </div>
+                 <div className="flex flex-col gap-1.5 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
+                   <span className="text-muted-foreground">Comisión del banco</span>
+                   <span className="break-words text-left font-medium text-foreground sm:max-w-[62%] sm:text-right">{formatCurrency(commission, selectedBank.currency)}</span>
+                 </div>
+                 <div className="flex flex-col gap-1.5 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
+                   <span className="text-muted-foreground">Actualizado</span>
+                   <span className="break-words text-left font-medium text-foreground sm:max-w-[62%] sm:text-right">{formatRateTimestamp(selectedBank.updatedAt)}</span>
+                 </div>
               </div>
             </div>
 
@@ -539,23 +539,23 @@ const PayInternationalPage = () => {
             {amountSent > 0 && (
               <div className="fintech-gradient-light rounded-2xl border border-border p-4 fintech-shadow">
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-primary">Monto estimado a recibir</p>
-                <p className={cn('mt-2 text-3xl font-bold', isReceiveAmountValid ? 'text-foreground' : 'text-destructive')}>
-                  {formatCurrency(Math.max(amountReceived, 0), selectedBank.currency)}
-                </p>
-                <div className="mt-4 space-y-2 text-sm">
-                  <div className="flex items-center justify-between gap-3">
-                    <span className="text-muted-foreground">Monto enviado</span>
-                    <span className="font-medium text-foreground">{formatCurrency(amountSent, mockAccount.currency)}</span>
-                  </div>
-                  <div className="flex items-center justify-between gap-3">
-                    <span className="text-muted-foreground">Conversión bruta</span>
-                    <span className="font-medium text-foreground">{formatCurrency(amountSent * selectedBank.exchangeRate, selectedBank.currency)}</span>
-                  </div>
-                  <div className="flex items-center justify-between gap-3">
-                    <span className="text-muted-foreground">Comisión aplicada</span>
-                    <span className="font-medium text-foreground">{formatCurrency(commission, selectedBank.currency)}</span>
-                  </div>
-                </div>
+                 <p className={cn('mt-2 break-words text-3xl font-bold', isReceiveAmountValid ? 'text-foreground' : 'text-destructive')}>
+                   {formatCurrency(Math.max(amountReceived, 0), selectedBank.currency)}
+                 </p>
+                 <div className="mt-4 space-y-2 text-sm">
+                   <div className="flex flex-col gap-1.5 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
+                     <span className="text-muted-foreground">Monto enviado</span>
+                     <span className="break-words text-left font-medium text-foreground sm:max-w-[62%] sm:text-right">{formatCurrency(amountSent, mockAccount.currency)}</span>
+                   </div>
+                   <div className="flex flex-col gap-1.5 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
+                     <span className="text-muted-foreground">Conversión bruta</span>
+                     <span className="break-words text-left font-medium text-foreground sm:max-w-[62%] sm:text-right">{formatCurrency(amountSent * selectedBank.exchangeRate, selectedBank.currency)}</span>
+                   </div>
+                   <div className="flex flex-col gap-1.5 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
+                     <span className="text-muted-foreground">Comisión aplicada</span>
+                     <span className="break-words text-left font-medium text-foreground sm:max-w-[62%] sm:text-right">{formatCurrency(commission, selectedBank.currency)}</span>
+                   </div>
+                 </div>
                 {!isReceiveAmountValid && (
                   <p className="mt-3 text-xs text-destructive">
                     El monto enviado debe ser mayor para cubrir la comisión del banco destino.

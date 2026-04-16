@@ -51,7 +51,7 @@ const PayUniversitiesPage = () => {
   if (step === 'summary') return (
     <AppLayout showNav={false}>
       <PageHeader title="Confirmar pago" onBack={() => setStep('form')} />
-      <div className="px-4 py-4 mx-auto max-w-lg space-y-4 animate-fade-in">
+      <div className="mx-auto max-w-3xl space-y-4 px-4 py-4 animate-fade-in sm:px-6 lg:px-8">
         <PaymentSummary data={paymentData} />
         <div className="flex items-center justify-between rounded-lg bg-accent p-3 text-sm"><span className="text-muted-foreground">Saldo disponible</span><span className="font-semibold text-foreground">S/ {mockAccount.balance.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</span></div>
         <Button size="xl" className="w-full" onClick={handleConfirm}>Confirmar pago</Button>
@@ -63,7 +63,7 @@ const PayUniversitiesPage = () => {
   return (
     <AppLayout showNav={false}>
       <PageHeader title="Pago a universidades" />
-      <div className="px-4 py-4 mx-auto max-w-lg space-y-4 animate-fade-in">
+      <div className="mx-auto max-w-3xl space-y-4 px-4 py-4 animate-fade-in sm:px-6 lg:px-8">
         {!selectedUni ? (
           <>
             <div className="relative">
@@ -72,26 +72,26 @@ const PayUniversitiesPage = () => {
             </div>
             <div className="space-y-2">
               {filtered.map(u => (
-                <button key={u.id} onClick={() => setSelectedUni(u.id)} className="flex w-full items-center gap-3 rounded-xl border border-border bg-card p-4 text-left transition-all hover:border-primary/30 active:scale-95 fintech-shadow">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary"><GraduationCap className="h-5 w-5" /></div>
-                  <div><p className="text-sm font-medium text-foreground">{u.name}</p><p className="text-xs text-muted-foreground">{u.concepts.join(' · ')}</p></div>
+                <button key={u.id} onClick={() => setSelectedUni(u.id)} className="flex w-full min-w-0 items-start gap-3 rounded-xl border border-border bg-card p-4 text-left transition-all hover:border-primary/30 active:scale-95 fintech-shadow sm:items-center">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary"><GraduationCap className="h-5 w-5" /></div>
+                  <div className="min-w-0"><p className="break-words text-sm font-medium text-foreground">{u.name}</p><p className="break-words text-xs text-muted-foreground">{u.concepts.join(' · ')}</p></div>
                 </button>
               ))}
             </div>
           </>
         ) : (
           <>
-            <div className="flex items-center gap-3 rounded-xl bg-accent p-3 fintech-shadow">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary"><GraduationCap className="h-5 w-5" /></div>
-              <div className="flex-1"><p className="text-sm font-medium text-foreground">{uni?.name}</p></div>
-              <button onClick={() => { setSelectedUni(null); setSelectedConcept(''); }} className="text-xs text-primary font-medium">Cambiar</button>
+            <div className="flex flex-wrap items-center gap-3 rounded-xl bg-accent p-3 fintech-shadow">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary"><GraduationCap className="h-5 w-5" /></div>
+              <div className="min-w-0 flex-1"><p className="break-words text-sm font-medium text-foreground">{uni?.name}</p></div>
+              <button onClick={() => { setSelectedUni(null); setSelectedConcept(''); }} className="shrink-0 text-xs font-medium text-primary">Cambiar</button>
             </div>
 
             <div>
               <label className="mb-2 block text-sm font-medium text-foreground">Concepto de pago</label>
               <div className="flex flex-wrap gap-2">
                 {uni?.concepts.map(c => (
-                  <button key={c} onClick={() => setSelectedConcept(c)} className={cn("rounded-lg px-4 py-2.5 text-sm font-medium transition-colors", selectedConcept === c ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:bg-muted/80")}>
+                  <button key={c} onClick={() => setSelectedConcept(c)} className={cn("rounded-lg px-4 py-2.5 text-left text-sm font-medium whitespace-normal transition-colors", selectedConcept === c ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:bg-muted/80")}>
                     {c}
                   </button>
                 ))}

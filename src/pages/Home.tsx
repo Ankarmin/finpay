@@ -16,9 +16,9 @@ const HomePage = () => {
   return (
     <AppLayout>
       <div className="animate-fade-in">
-        <div className="fintech-gradient min-h-[236px] px-4 pb-6 pt-4 safe-top">
-          <div className="mx-auto max-w-lg">
-            <div className="flex items-center justify-between mb-4">
+        <div className="fintech-gradient min-h-[236px] px-4 pb-6 pt-4 safe-top sm:px-6 lg:px-8">
+          <div className="mx-auto max-w-6xl">
+            <div className="mb-4 flex items-center justify-between gap-3">
               <div>
                 <p className="text-sm text-primary-foreground/80">Hola,</p>
                 <h1 className="text-lg font-bold text-primary-foreground">Juan Pérez</h1>
@@ -39,36 +39,38 @@ const HomePage = () => {
           </div>
         </div>
 
-        <div className="px-4 py-4 space-y-6 mx-auto max-w-lg">
-          <section>
-            <h2 className="mb-3 text-sm font-semibold text-foreground">Acciones rápidas</h2>
-            <QuickActions />
-          </section>
-
-          {frequentContacts.length > 0 && (
+        <div className="mx-auto grid max-w-6xl gap-6 px-4 py-4 sm:px-6 lg:px-8 xl:grid-cols-[minmax(0,1fr)_minmax(320px,0.92fr)] xl:items-start">
+          <div className="space-y-6">
             <section>
-              <h2 className="mb-3 text-sm font-semibold text-foreground">Contactos frecuentes</h2>
-              <div className="flex gap-4 overflow-x-auto pb-1">
-                {frequentContacts.map(c => (
-                  <button
-                    key={c.id}
-                    onClick={() => navigate('/pay/phone')}
-                    className="flex flex-col items-center gap-1.5 shrink-0 active:scale-95 transition-transform"
-                  >
-                    <div className="flex h-12 w-12 items-center justify-center rounded-full bg-accent text-sm font-bold text-accent-foreground">
-                      {c.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
-                    </div>
-                    <span className="text-xs text-muted-foreground w-16 text-center truncate">{c.name.split(' ')[0]}</span>
-                  </button>
-                ))}
-              </div>
+              <h2 className="mb-3 text-sm font-semibold text-foreground">Acciones rápidas</h2>
+              <QuickActions />
             </section>
-          )}
+
+            {frequentContacts.length > 0 && (
+              <section>
+                <h2 className="mb-3 text-sm font-semibold text-foreground">Contactos frecuentes</h2>
+                <div className="flex gap-4 overflow-x-auto pb-1">
+                  {frequentContacts.map(c => (
+                    <button
+                      key={c.id}
+                      onClick={() => navigate('/pay/phone')}
+                      className="flex shrink-0 flex-col items-center gap-1.5 active:scale-95 transition-transform"
+                    >
+                      <div className="flex h-12 w-12 items-center justify-center rounded-full bg-accent text-sm font-bold text-accent-foreground">
+                        {c.name.split(' ').map(n => n[0]).join('').slice(0, 2)}
+                      </div>
+                      <span className="w-16 truncate text-center text-xs text-muted-foreground">{c.name.split(' ')[0]}</span>
+                    </button>
+                  ))}
+                </div>
+              </section>
+            )}
+          </div>
 
           <section>
-            <div className="mb-2 flex items-center justify-between">
+            <div className="mb-2 flex items-center justify-between gap-3">
               <h2 className="text-sm font-semibold text-foreground">Movimientos recientes</h2>
-              <button onClick={() => navigate('/history')} className="flex items-center gap-1 text-xs font-medium text-primary">
+              <button onClick={() => navigate('/history')} className="flex shrink-0 items-center gap-1 text-xs font-medium text-primary">
                 Ver todo <ChevronRight className="h-3.5 w-3.5" />
               </button>
             </div>

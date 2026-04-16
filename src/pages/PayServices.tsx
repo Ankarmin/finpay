@@ -20,6 +20,7 @@ const iconMap: Record<string, React.ElementType> = {
 };
 
 const matchesSearch = (value: string, query: string) => value.toLowerCase().includes(query.toLowerCase());
+const getCompactCategoryLabel = (value: string) => value === 'Telecomunicaciones' ? 'Telecom' : value;
 
 const PayServicesPage = () => {
   const [step, setStep] = useState<PaymentStep>('form');
@@ -177,7 +178,7 @@ const PayServicesPage = () => {
     return (
       <AppLayout showNav={false}>
         <PageHeader title="Confirmar pago" onBack={() => setStep('form')} />
-        <div className="mx-auto max-w-lg space-y-4 px-4 py-4 animate-fade-in">
+        <div className="mx-auto max-w-3xl space-y-4 px-4 py-4 animate-fade-in sm:px-6 lg:px-8">
           <PaymentSummary data={paymentData} />
           {amountValue >= 500 && (
             <div className="rounded-lg border border-warning/30 bg-amber-50 p-3 text-xs text-warning fintech-shadow">
@@ -208,7 +209,7 @@ const PayServicesPage = () => {
         subtitle="Elige el servicio y luego la empresa que lo atiende"
         onBack={selectedServiceId || selectedCompanyId ? handleBack : undefined}
       />
-      <div className="mx-auto max-w-lg space-y-4 px-4 py-4 animate-fade-in">
+      <div className="mx-auto max-w-5xl space-y-4 px-4 py-4 animate-fade-in sm:px-6 lg:px-8">
         {!selectedServiceId && (
           <>
             <div className="relative">
@@ -222,7 +223,7 @@ const PayServicesPage = () => {
               />
             </div>
 
-            <div className="grid grid-cols-2 gap-3">
+            <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 xl:grid-cols-4">
               {filteredServices.map((item) => {
                 const Icon = iconMap[item.icon] || Zap;
 
@@ -231,14 +232,14 @@ const PayServicesPage = () => {
                     key={item.id}
                     type="button"
                     onClick={() => selectService(item)}
-                    className="flex items-center gap-3 rounded-xl border border-border bg-card p-4 text-left transition-all hover:border-primary/30 active:scale-95 fintech-shadow"
+                    className="flex min-h-[142px] min-w-0 flex-col items-start gap-3 rounded-xl border border-border bg-card p-4 text-left transition-all hover:border-primary/30 active:scale-95 fintech-shadow"
                   >
-                    <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-primary/10 text-primary">
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-primary/10 text-primary">
                       <Icon className="h-5 w-5" />
                     </div>
-                    <div>
-                      <p className="text-sm font-medium text-foreground">{item.name}</p>
-                      <p className="text-xs text-muted-foreground">{item.category}</p>
+                    <div className="min-w-0 space-y-1">
+                      <p className="break-words text-sm font-medium leading-snug text-foreground">{item.name}</p>
+                      <p className="text-balance text-xs leading-snug text-muted-foreground">{getCompactCategoryLabel(item.category)}</p>
                     </div>
                   </button>
                 );
@@ -255,15 +256,15 @@ const PayServicesPage = () => {
 
         {selectedServiceId && !selectedCompanyId && service && (
           <>
-            <div className="flex items-center gap-3 rounded-xl bg-accent p-3 fintech-shadow">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+            <div className="flex flex-wrap items-center gap-3 rounded-xl bg-accent p-3 fintech-shadow">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
                 <ServiceIcon className="h-5 w-5" />
               </div>
-              <div className="flex-1">
+              <div className="min-w-0 flex-1">
                 <p className="text-sm font-medium text-foreground">{service.name}</p>
-                <p className="text-xs text-muted-foreground">{service.category}</p>
+                <p className="break-words text-xs text-muted-foreground">{service.category}</p>
               </div>
-              <button type="button" onClick={() => handleBack()} className="text-xs font-medium text-primary">
+              <button type="button" onClick={() => handleBack()} className="shrink-0 text-xs font-medium text-primary">
                 Cambiar
               </button>
             </div>
@@ -285,14 +286,14 @@ const PayServicesPage = () => {
                   key={item.id}
                   type="button"
                   onClick={() => selectCompany(item)}
-                  className="flex w-full items-center gap-3 rounded-xl border border-border bg-card p-4 text-left transition-all hover:border-primary/30 active:scale-95 fintech-shadow"
+                  className="flex w-full min-w-0 items-start gap-3 rounded-xl border border-border bg-card p-4 text-left transition-all hover:border-primary/30 active:scale-95 fintech-shadow sm:items-center"
                 >
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
                     <Building2 className="h-5 w-5" />
                   </div>
-                  <div>
-                    <p className="text-sm font-medium text-foreground">{item.name}</p>
-                    <p className="text-xs text-muted-foreground">{item.category}</p>
+                  <div className="min-w-0">
+                    <p className="break-words text-sm font-medium text-foreground">{item.name}</p>
+                    <p className="break-words text-xs text-muted-foreground">{item.category}</p>
                   </div>
                 </button>
               ))}
@@ -308,13 +309,13 @@ const PayServicesPage = () => {
 
         {selectedServiceId && selectedCompanyId && service && company && (
           <>
-            <div className="flex items-center gap-3 rounded-xl bg-accent p-3 fintech-shadow">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+            <div className="flex flex-wrap items-center gap-3 rounded-xl bg-accent p-3 fintech-shadow">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary">
                 <ServiceIcon className="h-5 w-5" />
               </div>
-              <div className="flex-1">
-                <p className="text-sm font-medium text-foreground">{service.name}</p>
-                <p className="text-xs text-muted-foreground">{company.name}</p>
+              <div className="min-w-0 flex-1">
+                <p className="break-words text-sm font-medium text-foreground">{service.name}</p>
+                <p className="break-words text-xs text-muted-foreground">{company.name}</p>
               </div>
               <button
                 type="button"
@@ -323,7 +324,7 @@ const PayServicesPage = () => {
                   setSearch('');
                   setError('');
                 }}
-                className="text-xs font-medium text-primary"
+                className="shrink-0 text-xs font-medium text-primary"
               >
                 Cambiar
               </button>

@@ -15,17 +15,17 @@ export const QuickActions = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="grid grid-cols-3 gap-3">
+    <div className="grid grid-cols-3 gap-3 sm:grid-cols-3 lg:grid-cols-6">
       {actions.map((action) => (
         <button
           key={action.path}
           onClick={() => navigate(action.path)}
-          className="flex flex-col items-center gap-1.5 rounded-xl p-3 transition-all hover:bg-muted active:scale-95"
+          className="flex min-w-0 flex-col items-center gap-2 rounded-xl border border-transparent p-3 text-center transition-all hover:bg-muted active:scale-95"
         >
           <div className={cn("flex h-11 w-11 items-center justify-center rounded-xl", action.color)}>
             <action.icon className="h-5 w-5" />
           </div>
-          <span className="text-[11px] font-medium text-foreground">{action.label}</span>
+          <span className="text-balance text-[11px] font-medium leading-tight text-foreground sm:text-xs">{action.label}</span>
         </button>
       ))}
     </div>

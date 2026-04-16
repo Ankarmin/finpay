@@ -57,7 +57,7 @@ const PayBanksPage = () => {
   if (step === 'summary') return (
     <AppLayout showNav={false}>
       <PageHeader title="Confirmar transferencia" onBack={() => setStep('form')} />
-      <div className="px-4 py-4 mx-auto max-w-lg space-y-4 animate-fade-in">
+      <div className="mx-auto max-w-3xl space-y-4 px-4 py-4 animate-fade-in sm:px-6 lg:px-8">
         <PaymentSummary data={paymentData} showBiometric={parseFloat(amount) >= 1000} />
         <div className="flex items-center justify-between rounded-lg bg-accent p-3 text-sm"><span className="text-muted-foreground">Saldo disponible</span><span className="font-semibold text-foreground">S/ {mockAccount.balance.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</span></div>
         <Button size="xl" className="w-full" onClick={handleConfirm}>Confirmar</Button>
@@ -69,7 +69,7 @@ const PayBanksPage = () => {
   return (
     <AppLayout showNav={false}>
       <PageHeader title="Pago a bancos nacionales" />
-      <div className="px-4 py-4 mx-auto max-w-lg space-y-4 animate-fade-in">
+      <div className="mx-auto max-w-3xl space-y-4 px-4 py-4 animate-fade-in sm:px-6 lg:px-8">
         {!selectedBank ? (
           <>
             <div className="relative">
@@ -78,19 +78,19 @@ const PayBanksPage = () => {
             </div>
             <div className="space-y-2">
               {filtered.map(b => (
-                <button key={b.id} onClick={() => setSelectedBank(b.id)} className="flex w-full items-center gap-3 rounded-xl border border-border bg-card p-4 text-left transition-all hover:border-primary/30 active:scale-95 fintech-shadow">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary"><Landmark className="h-5 w-5" /></div>
-                  <div><p className="text-sm font-medium text-foreground">{b.name}</p><p className="text-xs text-muted-foreground">{b.country}</p></div>
+                <button key={b.id} onClick={() => setSelectedBank(b.id)} className="flex w-full min-w-0 items-start gap-3 rounded-xl border border-border bg-card p-4 text-left transition-all hover:border-primary/30 active:scale-95 fintech-shadow sm:items-center">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary"><Landmark className="h-5 w-5" /></div>
+                  <div className="min-w-0"><p className="break-words text-sm font-medium text-foreground">{b.name}</p><p className="break-words text-xs text-muted-foreground">{b.country}</p></div>
                 </button>
               ))}
             </div>
           </>
         ) : (
           <>
-            <div className="flex items-center gap-3 rounded-xl bg-accent p-3 fintech-shadow">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary"><Landmark className="h-5 w-5" /></div>
-              <div className="flex-1"><p className="text-sm font-medium text-foreground">{bank?.name}</p></div>
-              <button onClick={() => setSelectedBank(null)} className="text-xs text-primary font-medium">Cambiar</button>
+            <div className="flex flex-wrap items-center gap-3 rounded-xl bg-accent p-3 fintech-shadow">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary/10 text-primary"><Landmark className="h-5 w-5" /></div>
+              <div className="min-w-0 flex-1"><p className="break-words text-sm font-medium text-foreground">{bank?.name}</p></div>
+              <button onClick={() => setSelectedBank(null)} className="shrink-0 text-xs font-medium text-primary">Cambiar</button>
             </div>
             <div>
               <label className="mb-1 block text-sm font-medium text-foreground">Nombre del destinatario</label>

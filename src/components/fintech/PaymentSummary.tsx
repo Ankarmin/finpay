@@ -39,15 +39,15 @@ export const PaymentSummary = ({ data, showBiometric, compact }: PaymentSummaryP
       </div>
       <div className="space-y-2">
         {rows.map((row, i) => (
-          <div key={i} className="flex items-start justify-between gap-4 text-sm">
-            <span className="text-muted-foreground shrink-0">{row.label}</span>
-            <span className="text-right font-medium text-foreground">{row.value}</span>
+          <div key={i} className="flex flex-col gap-1.5 text-sm sm:flex-row sm:items-start sm:justify-between sm:gap-4">
+            <span className="shrink-0 text-muted-foreground">{row.label}</span>
+            <span className="min-w-0 break-words text-left font-medium text-foreground sm:max-w-[62%] sm:text-right">{row.value}</span>
           </div>
         ))}
       </div>
       {showBiometric && (
-        <div className="mt-4 flex items-center gap-2 rounded-lg bg-accent p-3 text-xs text-accent-foreground">
-          <Shield className="h-4 w-4" />
+        <div className="mt-4 flex items-start gap-2 rounded-lg bg-accent p-3 text-xs text-accent-foreground">
+          <Shield className="mt-0.5 h-4 w-4 shrink-0" />
           Se requerirá verificación biométrica para confirmar
         </div>
       )}

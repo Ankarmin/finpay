@@ -21,7 +21,7 @@ export const TransactionItem = ({ transaction, onClick }: TransactionItemProps) 
   return (
     <button
       onClick={onClick}
-      className="flex w-full items-center gap-3 rounded-xl px-3 py-3 text-left transition-colors hover:bg-muted/50 active:bg-muted"
+      className="flex w-full items-start gap-3 rounded-xl px-3 py-3 text-left transition-colors hover:bg-muted/50 active:bg-muted sm:items-center"
     >
       <div className={cn(
         "flex h-10 w-10 shrink-0 items-center justify-center rounded-xl",
@@ -29,20 +29,20 @@ export const TransactionItem = ({ transaction, onClick }: TransactionItemProps) 
       )}>
         {isIncome ? <ArrowDownLeft className="h-5 w-5" /> : <ArrowUpRight className="h-5 w-5" />}
       </div>
-      <div className="flex-1 min-w-0">
-        <p className="truncate text-sm font-medium text-foreground">{transaction.description}</p>
-        <div className="flex items-center gap-1.5 mt-0.5">
+      <div className="min-w-0 flex-1">
+        <p className="line-clamp-2 break-words text-sm font-medium text-foreground">{transaction.description}</p>
+        <div className="mt-0.5 flex flex-wrap items-center gap-x-1.5 gap-y-1">
           <status.icon className={cn("h-3 w-3", status.color)} />
           <span className={cn("text-xs", status.color)}>{status.label}</span>
           <span className="text-xs text-muted-foreground">· {transaction.time}</span>
         </div>
       </div>
-      <div className="text-right shrink-0">
-        <p className={cn("text-sm font-semibold", isIncome ? "text-success" : "text-foreground")}>
+      <div className="shrink-0 text-right">
+        <p className={cn("break-words text-sm font-semibold leading-tight", isIncome ? "text-success" : "text-foreground")}>
           {isIncome ? '+' : '-'}{transaction.currencySymbol} {transaction.amount.toLocaleString('es-PE', { minimumFractionDigits: 2 })}
         </p>
         {transaction.convertedAmount && (
-          <p className="text-xs text-muted-foreground">
+          <p className="break-words text-xs text-muted-foreground">
             ≈ S/ {transaction.convertedAmount.toLocaleString('es-PE', { minimumFractionDigits: 2 })}
           </p>
         )}

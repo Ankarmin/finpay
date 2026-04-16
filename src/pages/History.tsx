@@ -50,7 +50,7 @@ const HistoryPage = () => {
         </button>
       } />
 
-      <div className="px-4 py-3 mx-auto max-w-lg space-y-3">
+      <div className="mx-auto max-w-5xl space-y-3 px-4 py-3 sm:px-6 lg:px-8">
         <div className="relative">
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <input
@@ -99,7 +99,7 @@ const HistoryPage = () => {
         ) : (
           Object.entries(grouped).map(([date, txs]) => (
             <div key={date}>
-              <p className="mb-1 text-xs font-medium text-muted-foreground">{new Date(date).toLocaleDateString('es-PE', { weekday: 'long', day: 'numeric', month: 'long' })}</p>
+              <p className="mb-1 break-words text-xs font-medium capitalize text-muted-foreground">{new Date(date).toLocaleDateString('es-PE', { weekday: 'long', day: 'numeric', month: 'long' })}</p>
               <div className="rounded-xl border border-border bg-card fintech-shadow">
                 {txs.map(tx => (
                   <TransactionItem key={tx.id} transaction={tx} onClick={() => navigate(`/history/${tx.id}`)} />

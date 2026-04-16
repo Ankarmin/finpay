@@ -14,24 +14,24 @@ const SecurityPage = () => {
   return (
     <AppLayout>
       <PageHeader title="Seguridad" />
-      <div className="px-4 py-4 mx-auto max-w-lg space-y-4 animate-fade-in">
-        <div className="flex items-center gap-3 rounded-xl bg-accent p-4 fintech-shadow">
-          <Shield className="h-6 w-6 text-primary" />
-          <div>
+      <div className="mx-auto max-w-3xl space-y-4 px-4 py-4 animate-fade-in sm:px-6 lg:px-8">
+        <div className="flex items-start gap-3 rounded-xl bg-accent p-4 fintech-shadow sm:items-center">
+          <Shield className="mt-0.5 h-6 w-6 shrink-0 text-primary sm:mt-0" />
+          <div className="min-w-0">
             <p className="text-sm font-semibold text-foreground">Tu cuenta está protegida</p>
-            <p className="text-xs text-muted-foreground">Todas las verificaciones de seguridad están activas</p>
+            <p className="break-words text-xs text-muted-foreground">Todas las verificaciones de seguridad están activas</p>
           </div>
         </div>
 
         <div className="rounded-xl border border-border bg-card fintech-shadow">
           {items.map((item, i) => (
-            <button key={i} className="flex w-full items-center gap-3 px-4 py-3.5 text-left transition-colors hover:bg-muted/50 active:bg-muted border-b border-border last:border-0">
-              <item.icon className="h-5 w-5 text-muted-foreground" />
-              <div className="flex-1">
-                <p className="text-sm font-medium text-foreground">{item.label}</p>
-                <p className="text-xs text-muted-foreground">{item.desc}</p>
+            <button key={i} className="flex w-full items-start gap-3 border-b border-border px-4 py-3.5 text-left transition-colors hover:bg-muted/50 active:bg-muted last:border-0 sm:items-center">
+              <item.icon className="mt-0.5 h-5 w-5 shrink-0 text-muted-foreground sm:mt-0" />
+              <div className="min-w-0 flex-1">
+                <p className="break-words text-sm font-medium text-foreground">{item.label}</p>
+                <p className="break-words text-xs text-muted-foreground">{item.desc}</p>
               </div>
-              <ChevronRight className="h-4 w-4 text-muted-foreground" />
+              <ChevronRight className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground sm:mt-0" />
             </button>
           ))}
         </div>

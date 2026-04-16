@@ -16,7 +16,7 @@ const RecoveryPage = () => {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-background px-6 py-8">
+    <div className="mx-auto flex min-h-screen w-full max-w-3xl flex-col bg-background px-6 py-8 sm:px-8">
       <div className="mb-6 flex items-center gap-3">
         <button onClick={() => navigate('/')} className="flex h-10 w-10 items-center justify-center rounded-xl hover:bg-muted">
           <ArrowLeft className="h-5 w-5 text-foreground" />
@@ -29,18 +29,18 @@ const RecoveryPage = () => {
 
       <div className="flex-1 animate-fade-in">
         {sent ? (
-          <div className="flex flex-col items-center text-center pt-12">
-            <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-50">
-              <CheckCircle2 className="h-8 w-8 text-success" />
+            <div className="flex flex-col items-center pt-12 text-center">
+              <div className="mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-emerald-50">
+                <CheckCircle2 className="h-8 w-8 text-success" />
+              </div>
+              <h1 className="text-xl font-bold text-foreground">Correo enviado</h1>
+              <p className="mt-2 max-w-md text-sm text-muted-foreground">Revisa tu bandeja de entrada y sigue las instrucciones para recuperar tu acceso.</p>
+              <Button size="xl" className="mt-8 w-full" onClick={() => navigate('/')}>Volver al inicio</Button>
             </div>
-            <h1 className="text-xl font-bold text-foreground">Correo enviado</h1>
-            <p className="mt-2 text-sm text-muted-foreground">Revisa tu bandeja de entrada y sigue las instrucciones para recuperar tu acceso.</p>
-            <Button size="xl" className="mt-8 w-full" onClick={() => navigate('/')}>Volver al inicio</Button>
-          </div>
-        ) : (
-          <>
-            <h1 className="text-2xl font-bold text-foreground">Recuperar acceso</h1>
-            <p className="mt-2 text-sm text-muted-foreground">Ingresa tu correo electrónico registrado y te enviaremos instrucciones para restablecer tu clave.</p>
+          ) : (
+            <>
+              <h1 className="text-2xl font-bold text-foreground">Recuperar acceso</h1>
+              <p className="mt-2 max-w-xl text-sm text-muted-foreground">Ingresa tu correo electrónico registrado y te enviaremos instrucciones para restablecer tu clave.</p>
             <div className="mt-6">
               <label className="mb-1 block text-sm font-medium text-foreground">Correo electrónico</label>
               <div className="relative">

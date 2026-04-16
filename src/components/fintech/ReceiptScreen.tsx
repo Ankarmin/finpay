@@ -47,7 +47,7 @@ export const ReceiptScreen = ({ data, transactionCode, balanceAfter, status = 'c
   ];
 
   return (
-    <div className="flex flex-col items-center px-4 py-6 animate-fade-in">
+    <div className="mx-auto flex w-full max-w-3xl flex-col items-center px-4 py-6 animate-fade-in sm:px-6">
       <div className="mb-4 flex items-center gap-2">
         <img src="/favicon.png" alt="FinPay" className="h-10 w-10" />
         <span className="text-lg font-bold text-foreground">FinPay</span>
@@ -61,15 +61,15 @@ export const ReceiptScreen = ({ data, transactionCode, balanceAfter, status = 'c
         {currencySymbol} {data.amount.toLocaleString('es-PE', { minimumFractionDigits: 2 })}
       </p>
 
-      <div className="mt-6 w-full rounded-xl border border-border bg-card p-4 fintech-shadow">
+      <div className="mt-6 w-full rounded-xl border border-border bg-card p-4 fintech-shadow sm:p-5">
         <div className="space-y-3">
           {rows.map((row, i) => (
-            <div key={i} className="flex items-start justify-between gap-3 text-sm">
-              <span className="text-muted-foreground shrink-0">{row.label}</span>
-              <div className="flex items-center gap-1">
-                <span className="text-right font-medium text-foreground">{row.value}</span>
+            <div key={i} className="flex flex-col gap-1.5 text-sm sm:flex-row sm:items-start sm:justify-between sm:gap-3">
+              <span className="shrink-0 text-muted-foreground">{row.label}</span>
+              <div className="flex min-w-0 items-start gap-1 self-start sm:max-w-[62%] sm:self-auto">
+                <span className="min-w-0 break-words text-left font-medium text-foreground sm:text-right">{row.value}</span>
                 {'copyable' in row && row.copyable && (
-                  <button onClick={handleCopy} className="text-muted-foreground hover:text-primary">
+                  <button onClick={handleCopy} className="mt-0.5 shrink-0 text-muted-foreground hover:text-primary">
                     <Copy className="h-3.5 w-3.5" />
                   </button>
                 )}
@@ -79,7 +79,7 @@ export const ReceiptScreen = ({ data, transactionCode, balanceAfter, status = 'c
         </div>
       </div>
 
-      <div className="mt-6 flex w-full gap-3">
+      <div className="mt-6 grid w-full gap-3 sm:grid-cols-2">
         <Button variant="outline" size="lg" className="flex-1 gap-2">
           <Share2 className="h-4 w-4" /> Compartir
         </Button>

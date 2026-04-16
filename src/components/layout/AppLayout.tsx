@@ -1,4 +1,5 @@
 import { BottomNav } from './BottomNav';
+import { cn } from '@/lib/utils';
 
 interface AppLayoutProps {
   children: React.ReactNode;
@@ -7,11 +8,13 @@ interface AppLayoutProps {
 
 export const AppLayout = ({ children, showNav = true }: AppLayoutProps) => {
   return (
-    <div className="fintech-canvas mx-auto min-h-screen w-full max-w-lg">
-      <main className={showNav ? "pb-20" : ""}>
-        {children}
-      </main>
-      {showNav && <BottomNav />}
+    <div className="mx-auto min-h-screen w-full max-w-7xl bg-background md:px-4 md:py-4 lg:px-6">
+      <div className="fintech-canvas min-h-screen w-full overflow-x-clip md:rounded-[2rem]">
+        <main className={cn('min-w-0', showNav && 'pb-24')}>
+          {children}
+        </main>
+        {showNav && <BottomNav />}
+      </div>
     </div>
   );
 };

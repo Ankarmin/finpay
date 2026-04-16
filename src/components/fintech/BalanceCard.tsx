@@ -11,19 +11,19 @@ interface BalanceCardProps {
 
 export const BalanceCard = ({ balance, currency, currencySymbol, accountNumber, showBalance, onToggleVisibility }: BalanceCardProps) => {
   return (
-    <div className="fintech-gradient rounded-2xl p-5 text-primary-foreground fintech-shadow-lg">
-      <div className="flex items-center justify-between">
+    <div className="fintech-gradient rounded-2xl p-5 text-primary-foreground fintech-shadow-lg sm:p-6">
+      <div className="flex items-start justify-between gap-3">
         <p className="text-sm font-medium opacity-90">Saldo disponible</p>
-        <button onClick={onToggleVisibility} className="rounded-lg p-1.5 transition-colors hover:bg-white/10 active:scale-95" aria-label={showBalance ? 'Ocultar saldo' : 'Mostrar saldo'}>
+        <button onClick={onToggleVisibility} className="shrink-0 rounded-lg p-1.5 transition-colors hover:bg-white/10 active:scale-95" aria-label={showBalance ? 'Ocultar saldo' : 'Mostrar saldo'}>
           {showBalance ? <Eye className="h-4 w-4" /> : <EyeOff className="h-4 w-4" />}
         </button>
       </div>
-      <p className="mt-1 text-3xl font-bold tracking-tight">
+      <p className="mt-2 break-words text-3xl font-bold tracking-tight sm:text-[2.25rem]">
         {showBalance ? `${currencySymbol} ${balance.toLocaleString('es-PE', { minimumFractionDigits: 2 })}` : '••••••'}
       </p>
-      <div className="mt-3 flex items-center justify-between text-sm opacity-80">
-        <span>Cuenta {accountNumber}</span>
-        <span className="rounded-full bg-white/15 px-2.5 py-0.5 text-xs font-medium">{currency}</span>
+      <div className="mt-4 flex flex-wrap items-center justify-between gap-2 text-sm opacity-80">
+        <span className="min-w-0 break-words">Cuenta {accountNumber}</span>
+        <span className="shrink-0 rounded-full bg-white/15 px-2.5 py-0.5 text-xs font-medium">{currency}</span>
       </div>
     </div>
   );
