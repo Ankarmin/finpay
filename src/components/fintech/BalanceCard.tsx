@@ -1,15 +1,15 @@
 import { Eye, EyeOff } from 'lucide-react';
+import { formatMoney } from '@/lib/format';
 
 interface BalanceCardProps {
   balance: number;
   currency: string;
-  currencySymbol: string;
   accountNumber: string;
   showBalance: boolean;
   onToggleVisibility: () => void;
 }
 
-export const BalanceCard = ({ balance, currency, currencySymbol, accountNumber, showBalance, onToggleVisibility }: BalanceCardProps) => {
+export const BalanceCard = ({ balance, currency, accountNumber, showBalance, onToggleVisibility }: BalanceCardProps) => {
   return (
     <div className="fintech-gradient rounded-2xl p-5 text-primary-foreground fintech-shadow-lg sm:p-6">
       <div className="flex items-start justify-between gap-3">
@@ -19,7 +19,7 @@ export const BalanceCard = ({ balance, currency, currencySymbol, accountNumber, 
         </button>
       </div>
       <p className="mt-2 break-words text-3xl font-bold tracking-tight sm:text-[2.25rem]">
-        {showBalance ? `${currencySymbol} ${balance.toLocaleString('es-PE', { minimumFractionDigits: 2 })}` : '••••••'}
+        {showBalance ? formatMoney(balance, currency) : '••••••'}
       </p>
       <div className="mt-4 flex flex-wrap items-center justify-between gap-2 text-sm opacity-80">
         <span className="min-w-0 break-words">Cuenta {accountNumber}</span>

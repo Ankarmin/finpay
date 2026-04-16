@@ -3,7 +3,6 @@
 ## Stack and entrypoints
 - Single-package Vite app, not a monorepo. Stack: React 18 + TypeScript + Tailwind + shadcn/Radix.
 - App bootstraps in `src/main.tsx`. The real route table is hardcoded in `src/App.tsx` with `BrowserRouter`; edit that file when adding or removing screens.
-- `src/pages/Index.tsx` exists but is currently unused.
 - The UI is mobile-first: `AppLayout` constrains most screens to `max-w-lg` and adds the fixed bottom nav unless `showNav={false}`.
 
 ## Source of truth for app behavior
@@ -18,7 +17,7 @@
 - Use the `@` alias for `src` imports.
 
 ## Commands
-- Default to `npm` here. Both `package-lock.json` and `bun.lock` exist, but the verified commands below were run with `npm`.
+- Default to `npm` here. `package-lock.json` is the source of truth for installs.
 - Dev server: `npm run dev` (Vite serves on port `8080` and host `::`).
 - Production build: `npm run build`
 - Lint: `npm run lint`
@@ -28,12 +27,7 @@
 
 ## Verification gotchas
 - Vitest runs in `jsdom` and loads `src/test/setup.ts`, which stubs `window.matchMedia`. Keep that setup in mind for component tests.
-- `npm run lint` is currently not clean before any new changes. Verified existing errors:
-  - `src/components/ui/command.tsx`
-  - `src/components/ui/textarea.tsx`
-  - `tailwind.config.ts`
-- `npm run lint` also reports several existing `react-refresh/only-export-components` warnings in `src/components/ui/*`.
-- `npm run build` currently succeeds, but Vite warns that the Google Fonts `@import` in `src/index.css` comes after Tailwind directives.
+- `npm run lint`, `npm run test` y `npm run build` deben mantenerse operativos tras cambios de limpieza.
 
 ## Styling notes
 - Theme tokens live in `src/index.css` and `tailwind.config.ts`.

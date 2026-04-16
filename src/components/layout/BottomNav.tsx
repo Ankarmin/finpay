@@ -14,12 +14,31 @@ export const BottomNav = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
+  const isItemActive = (path: string) => {
+    if (path === '/home') {
+      return location.pathname === '/home';
+    }
+
+    if (path === '/history') {
+      return location.pathname === '/history' || location.pathname.startsWith('/history/');
+    }
+
+    if (path === '/profile') {
+      return location.pathname === '/profile' || location.pathname === '/security';
+    }
+
+    if (path === '/settings') {
+      return location.pathname === '/settings' || location.pathname === '/help';
+    }
+
+    return location.pathname === path;
+  };
+
   return (
     <nav className="fintech-shadow safe-bottom fixed bottom-0 left-1/2 z-50 w-full max-w-3xl -translate-x-1/2 border-t border-border bg-card/95 backdrop-blur-md md:bottom-4 md:rounded-2xl md:border">
       <div className="mx-auto flex min-h-[68px] w-full items-end justify-around gap-1 px-2 py-1 sm:px-3">
         {navItems.map((item) => {
-          const isActive = location.pathname === item.path || 
-            (item.path === '/home' && location.pathname === '/home');
+          const isActive = isItemActive(item.path);
           
           if (item.isCenter) {
             return (

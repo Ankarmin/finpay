@@ -21,18 +21,20 @@ const PayUniversitiesPage = () => {
 
   const uni = mockUniversities.find(u => u.id === selectedUni);
   const filtered = mockUniversities.filter(u => u.name.toLowerCase().includes(search.toLowerCase()));
+  const amountValue = parseFloat(amount) || 0;
 
   const paymentData: PaymentData = {
     recipient: uni?.name || '',
     recipientDetail: studentCode,
-    amount: parseFloat(amount) || 0,
+    amount: amountValue,
     currency: 'PEN',
     fee: 0,
-    total: parseFloat(amount) || 0,
+    total: amountValue,
     method: 'Pago a universidad',
     university: uni?.name,
     concept: selectedConcept,
   };
+  const canContinue = !!selectedUni && !!selectedConcept && !!studentCode && amountValue > 0 && amountValue <= mockAccount.balance && amountValue <= 5000;
 
   const handleNext = () => {
     if (!selectedUni) { setError('Selecciona una universidad'); return; }
@@ -40,6 +42,7 @@ const PayUniversitiesPage = () => {
     if (!studentCode) { setError('Ingresa el código de alumno'); return; }
     if (!amount || parseFloat(amount) <= 0) { setError('Ingresa un monto válido'); return; }
     if (parseFloat(amount) > mockAccount.balance) { setError('Saldo insuficiente'); return; }
+    if (amountValue > 5000) { setError('El máximo diario por ahora es S/ 5,000.00'); return; }
     setStep('summary');
   };
 
@@ -107,11 +110,12 @@ const PayUniversitiesPage = () => {
               <label className="mb-1 block text-sm font-medium text-foreground">Monto (S/)</label>
               <input type="number" placeholder="0.00" value={amount} onChange={e => { setAmount(e.target.value); setError(''); }} className="w-full rounded-xl border border-border bg-card px-4 py-3 text-2xl font-bold focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" />
               <p className="mt-1 text-xs text-muted-foreground">Saldo: S/ {mockAccount.balance.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</p>
+              <p className="mt-1 text-xs text-muted-foreground">Máximo diario: S/ 5,000.00</p>
             </div>
 
             {error && <p className="text-sm text-destructive">{error}</p>}
             {(studentCode || amount || selectedConcept) && <PaymentSummary data={paymentData} compact />}
-            <Button size="xl" className="w-full" onClick={handleNext}>Continuar</Button>
+            <Button size="xl" className="w-full" onClick={handleNext} disabled={!canContinue}>Continuar</Button>
           </>
         )}
       </div>

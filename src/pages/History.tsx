@@ -44,7 +44,7 @@ const HistoryPage = () => {
 
   return (
     <AppLayout>
-      <PageHeader title="Historial" showBack={false} rightAction={
+      <PageHeader title="Historial" backTo="/home" rightAction={
         <button onClick={() => setShowFilters(!showFilters)} className={cn("flex h-10 w-10 items-center justify-center rounded-xl transition-colors", showFilters ? "bg-primary text-primary-foreground" : "text-foreground hover:bg-muted")}>
           <SlidersHorizontal className="h-5 w-5" />
         </button>

@@ -4,7 +4,6 @@ import { useAuthStore } from '@/store/auth';
 const resetAuthStore = () => {
   useAuthStore.setState({
     isAuthenticated: false,
-    isBiometricVerified: false,
     failedAttempts: 0,
     isLocked: false,
     lockUntil: null,

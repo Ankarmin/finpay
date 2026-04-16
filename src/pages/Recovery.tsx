@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Mail, Loader2, CheckCircle2 } from 'lucide-react';
+import { ArrowLeft, Mail, Loader2, CheckCircle2, X } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 
 const RecoveryPage = () => {
@@ -8,9 +8,15 @@ const RecoveryPage = () => {
   const [email, setEmail] = useState('');
   const [sent, setSent] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+
+  const isValidEmail = /\S+@\S+\.\S+/.test(email);
 
   const handleSubmit = () => {
-    if (!email) return;
+    if (!isValidEmail) {
+      setError('Ingresa un correo válido para enviarte las instrucciones.');
+      return;
+    }
     setLoading(true);
     setTimeout(() => { setLoading(false); setSent(true); }, 1500);
   };
@@ -40,15 +46,22 @@ const RecoveryPage = () => {
           ) : (
             <>
               <h1 className="text-2xl font-bold text-foreground">Recuperar acceso</h1>
-              <p className="mt-2 max-w-xl text-sm text-muted-foreground">Ingresa tu correo electrónico registrado y te enviaremos instrucciones para restablecer tu clave.</p>
+              <p className="mt-2 max-w-xl text-sm text-muted-foreground">Ingresa tu correo registrado y te enviaremos instrucciones para volver a entrar.</p>
             <div className="mt-6">
               <label className="mb-1 block text-sm font-medium text-foreground">Correo electrónico</label>
               <div className="relative">
                 <Mail className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                <input type="email" placeholder="tu@email.com" value={email} onChange={e => setEmail(e.target.value)} className="w-full rounded-xl border border-border bg-card py-3 pl-10 pr-4 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" />
+                <input type="email" placeholder="tu@email.com" value={email} onChange={e => { setEmail(e.target.value); setError(''); }} className="w-full rounded-xl border border-border bg-card py-3 pl-10 pr-10 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" />
+                {email && (
+                  <button type="button" onClick={() => { setEmail(''); setError(''); }} className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground transition-colors hover:text-foreground">
+                    <X className="h-4 w-4" />
+                  </button>
+                )}
               </div>
+              <p className="mt-2 text-xs text-muted-foreground">Te llegará un mensaje al correo registrado en tu billetera.</p>
+              {error && <p className="mt-2 text-sm text-destructive">{error}</p>}
             </div>
-            <Button size="xl" className="mt-6 w-full" onClick={handleSubmit} disabled={!email || loading}>
+            <Button size="xl" className="mt-6 w-full" onClick={handleSubmit} disabled={!isValidEmail || loading}>
               {loading ? <Loader2 className="h-5 w-5 animate-spin" /> : 'Enviar instrucciones'}
             </Button>
           </>

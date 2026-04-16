@@ -2,22 +2,19 @@ import { create } from 'zustand';
 
 interface AuthState {
   isAuthenticated: boolean;
-  isBiometricVerified: boolean;
   failedAttempts: number;
   isLocked: boolean;
   lockUntil: number | null;
   login: (pin: string) => boolean;
   verifyBiometric: () => void;
   logout: () => void;
-  resetAttempts: () => void;
 }
 
 const MAX_ATTEMPTS = 5;
-const LOCK_DURATION = 5 * 60 * 1000; // 5 minutes
+const LOCK_DURATION = 5 * 60 * 1000;
 
 export const useAuthStore = create<AuthState>((set, get) => ({
   isAuthenticated: false,
-  isBiometricVerified: false,
   failedAttempts: 0,
   isLocked: false,
   lockUntil: null,
@@ -43,9 +40,7 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     return false;
   },
 
-  verifyBiometric: () => set({ isBiometricVerified: true, isAuthenticated: true }),
+  verifyBiometric: () => set({ isAuthenticated: true }),
 
-  logout: () => set({ isAuthenticated: false, isBiometricVerified: false }),
-
-  resetAttempts: () => set({ failedAttempts: 0, isLocked: false, lockUntil: null }),
+  logout: () => set({ isAuthenticated: false }),
 }));

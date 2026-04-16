@@ -10,16 +10,16 @@ const ProfilePage = () => {
   const { logout } = useAuthStore();
 
   const items = [
-    { icon: User, label: 'Datos personales', path: '/profile' },
+    { icon: User, label: 'Datos personales', path: '/settings' },
     { icon: Shield, label: 'Seguridad', path: '/security' },
     { icon: Bell, label: 'Notificaciones', path: '/settings' },
-    { icon: FileText, label: 'Documentos', path: '/profile' },
-    { icon: HelpCircle, label: 'Ayuda y soporte', path: '/profile' },
+    { icon: FileText, label: 'Documentos y constancias', path: '/help' },
+    { icon: HelpCircle, label: 'Ayuda y soporte', path: '/help' },
   ];
 
   return (
     <AppLayout>
-      <PageHeader title="Perfil" showBack={false} />
+      <PageHeader title="Perfil" backTo="/home" />
       <div className="mx-auto max-w-3xl space-y-4 px-4 py-4 animate-fade-in sm:px-6 lg:px-8">
         <div className="flex flex-col items-center py-4">
           <div className="flex h-20 w-20 items-center justify-center rounded-full bg-primary text-2xl font-bold text-primary-foreground">JP</div>
@@ -40,6 +40,10 @@ const ProfilePage = () => {
               <ChevronRight className="mt-0.5 h-4 w-4 shrink-0 text-muted-foreground sm:mt-0" />
             </button>
           ))}
+        </div>
+
+        <div className="rounded-xl border border-border bg-card p-4 text-sm text-muted-foreground fintech-shadow">
+          Desde aquí también puedes salir sin perder tus datos importantes y volver cuando quieras.
         </div>
 
         <Button variant="outline" size="lg" className="w-full gap-2 text-destructive border-destructive/20 hover:bg-destructive/5" onClick={() => { logout(); navigate('/'); }}>

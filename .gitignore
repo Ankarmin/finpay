@@ -12,16 +12,23 @@ node_modules/
 dist/
 dist-ssr/
 coverage/
+.vite/
 
 # Local environment files
 .env
 .env.*
 !.env.example
 *.local
+bun.lockb
 
 # TypeScript
 *.tsbuildinfo
 .eslintcache
+*.tmp
+*.temp
+tmp/
+temp/
+*.orig
 
 # Editor directories and files
 .vscode/*

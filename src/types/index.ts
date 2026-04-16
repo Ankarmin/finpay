@@ -2,7 +2,6 @@ export interface Account {
   id: string;
   balance: number;
   currency: string;
-  currencySymbol: string;
   accountNumber: string;
   type: 'checking' | 'savings';
 }
@@ -13,7 +12,6 @@ export interface Transaction {
   category: 'phone' | 'qr' | 'service' | 'company' | 'university' | 'bank_national' | 'bank_international' | 'interbank_foreign';
   amount: number;
   currency: string;
-  currencySymbol: string;
   convertedAmount?: number;
   convertedCurrency?: string;
   exchangeRate?: number;
@@ -32,9 +30,6 @@ export interface PaymentRecipient {
   id: string;
   name: string;
   phone?: string;
-  bank?: string;
-  accountNumber?: string;
-  avatar?: string;
   isFavorite?: boolean;
 }
 
@@ -48,15 +43,13 @@ export interface Service {
 export interface Company {
   id: string;
   name: string;
-  logo?: string;
   category: string;
-   serviceIds: string[];
+  serviceIds: string[];
 }
 
 export interface University {
   id: string;
   name: string;
-  logo?: string;
   concepts: string[];
 }
 

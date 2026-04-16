@@ -1,6 +1,7 @@
 import type { Transaction } from '@/types';
 import { ArrowUpRight, ArrowDownLeft, Clock, CheckCircle2, XCircle, AlertCircle } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { formatMoney } from '@/lib/format';
 
 interface TransactionItemProps {
   transaction: Transaction;
@@ -39,11 +40,11 @@ export const TransactionItem = ({ transaction, onClick }: TransactionItemProps) 
       </div>
       <div className="shrink-0 text-right">
         <p className={cn("break-words text-sm font-semibold leading-tight", isIncome ? "text-success" : "text-foreground")}>
-          {isIncome ? '+' : '-'}{transaction.currencySymbol} {transaction.amount.toLocaleString('es-PE', { minimumFractionDigits: 2 })}
+          {isIncome ? '+' : '-'}{formatMoney(transaction.amount, transaction.currency)}
         </p>
         {transaction.convertedAmount && (
           <p className="break-words text-xs text-muted-foreground">
-            ≈ S/ {transaction.convertedAmount.toLocaleString('es-PE', { minimumFractionDigits: 2 })}
+            ≈ {formatMoney(transaction.convertedAmount, 'PEN')}
           </p>
         )}
       </div>

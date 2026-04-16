@@ -6,6 +6,7 @@ import { CheckCircle2, Clock, XCircle, Copy, Share2, Download } from 'lucide-rea
 import { Button } from '@/components/ui/button';
 import { toast } from '@/hooks/use-toast';
 import { cn } from '@/lib/utils';
+import { formatMoney } from '@/lib/format';
 
 const statusConfig = {
   completed: { icon: CheckCircle2, label: 'Completado', color: 'text-success', bg: 'bg-emerald-50' },
@@ -30,33 +31,64 @@ const TransactionDetailPage = () => {
   const s = statusConfig[tx.status];
   const isIncome = tx.type === 'receive';
 
+  const handleShare = async () => {
+    const shareText = `${tx.description} · ${formatMoney(tx.amount, tx.currency)} · ${tx.transactionCode}`;
+
+    if (navigator.share) {
+      await navigator.share({ title: 'Movimiento FinPay', text: shareText });
+      return;
+    }
+
+    await navigator.clipboard.writeText(shareText);
+    toast({ title: 'Resumen copiado', description: 'Ya puedes compartirlo donde quieras.' });
+  };
+
+  const handleDownload = () => {
+    const content = [
+      'Movimiento FinPay',
+      `Descripción: ${tx.description}`,
+      `Monto: ${formatMoney(tx.amount, tx.currency)}`,
+      `Estado: ${s.label}`,
+      `Código: ${tx.transactionCode}`,
+    ].join('\n');
+
+    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `movimiento-${tx.transactionCode}.txt`;
+    link.click();
+    URL.revokeObjectURL(url);
+    toast({ title: 'Movimiento descargado', description: 'Guardamos una copia simple en texto.' });
+  };
+
   const rows = [
     { label: 'Código', value: tx.transactionCode, copyable: true },
     { label: 'Estado', value: s.label },
     { label: 'Tipo', value: tx.type === 'send' ? 'Envío' : tx.type === 'receive' ? 'Recepción' : 'Pago' },
     { label: 'Categoría', value: tx.category.replace('_', ' ') },
-    { label: 'Monto', value: `${tx.currencySymbol} ${tx.amount.toLocaleString('es-PE', { minimumFractionDigits: 2 })}` },
+    { label: 'Monto', value: formatMoney(tx.amount, tx.currency) },
     { label: 'Moneda', value: tx.currency },
     ...(tx.exchangeRate ? [{ label: 'Tipo de cambio', value: `${tx.exchangeRate}` }] : []),
-    ...(tx.convertedAmount ? [{ label: 'Equivalente PEN', value: `S/ ${tx.convertedAmount.toLocaleString('es-PE', { minimumFractionDigits: 2 })}` }] : []),
+    ...(tx.convertedAmount ? [{ label: 'Equivalente en soles', value: formatMoney(tx.convertedAmount, 'PEN') }] : []),
     ...(tx.recipient ? [{ label: 'Destinatario', value: tx.recipient }] : []),
     ...(tx.recipientBank ? [{ label: 'Banco destino', value: tx.recipientBank }] : []),
-    ...(tx.fee ? [{ label: 'Comisión', value: `S/ ${tx.fee.toFixed(2)}` }] : []),
+    ...(tx.fee ? [{ label: 'Comisión', value: formatMoney(tx.fee, 'PEN') }] : []),
     { label: 'Fecha', value: new Date(tx.date).toLocaleDateString('es-PE', { day: 'numeric', month: 'long', year: 'numeric' }) },
     { label: 'Hora', value: tx.time },
-    ...(tx.balanceAfter ? [{ label: 'Saldo posterior', value: `S/ ${tx.balanceAfter.toLocaleString('es-PE', { minimumFractionDigits: 2 })}` }] : []),
+    ...(tx.balanceAfter ? [{ label: 'Saldo después del movimiento', value: formatMoney(tx.balanceAfter, 'PEN') }] : []),
   ];
 
   return (
     <AppLayout>
-      <PageHeader title="Detalle de movimiento" />
+      <PageHeader title="Detalle de movimiento" backTo="/history" />
       <div className="mx-auto max-w-3xl px-4 py-4 animate-fade-in sm:px-6 lg:px-8">
         <div className="flex flex-col items-center mb-6">
           <div className={cn("mb-3 flex h-16 w-16 items-center justify-center rounded-full", s.bg)}>
             <s.icon className={cn("h-8 w-8", s.color)} />
           </div>
           <p className={cn("text-2xl font-bold", isIncome ? "text-success" : "text-foreground")}>
-            {isIncome ? '+' : '-'}{tx.currencySymbol} {tx.amount.toLocaleString('es-PE', { minimumFractionDigits: 2 })}
+            {isIncome ? '+' : '-'}{formatMoney(tx.amount, tx.currency)}
           </p>
           <p className="mt-1 break-words text-center text-sm text-muted-foreground">{tx.description}</p>
         </div>
@@ -78,8 +110,8 @@ const TransactionDetailPage = () => {
         </div>
 
         <div className="mt-4 grid gap-3 sm:grid-cols-2">
-          <Button variant="outline" size="lg" className="flex-1 gap-2"><Share2 className="h-4 w-4" /> Compartir</Button>
-          <Button variant="outline" size="lg" className="flex-1 gap-2"><Download className="h-4 w-4" /> Descargar</Button>
+          <Button variant="outline" size="lg" className="flex-1 gap-2" onClick={() => void handleShare()}><Share2 className="h-4 w-4" /> Compartir</Button>
+          <Button variant="outline" size="lg" className="flex-1 gap-2" onClick={handleDownload}><Download className="h-4 w-4" /> Descargar</Button>
         </div>
       </div>
     </AppLayout>

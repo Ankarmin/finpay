@@ -1,5 +1,6 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Outlet, Route, Routes } from "react-router-dom";
 import { Toaster } from "@/components/ui/toaster";
+import { useAuthStore } from "@/store/auth";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
 import History from "./pages/History";
@@ -14,7 +15,18 @@ import Profile from "./pages/Profile";
 import Security from "./pages/Security";
 import Settings from "./pages/Settings";
 import Recovery from "./pages/Recovery";
+import HelpCenter from "./pages/HelpCenter";
 import NotFound from "./pages/NotFound";
+
+const ProtectedRoute = () => {
+  const { isAuthenticated } = useAuthStore();
+
+  if (!isAuthenticated) {
+    return <Navigate to="/" replace />;
+  }
+
+  return <Outlet />;
+};
 
 const App = () => (
   <>
@@ -22,19 +34,22 @@ const App = () => (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/history" element={<History />} />
-        <Route path="/history/:id" element={<TransactionDetail />} />
-        <Route path="/pay/phone" element={<PayPhone />} />
-        <Route path="/pay/qr" element={<PayQR />} />
-        <Route path="/pay/services" element={<PayServices />} />
-        <Route path="/pay/universities" element={<PayUniversities />} />
-        <Route path="/pay/banks" element={<PayBanks />} />
-        <Route path="/pay/international" element={<PayInternational />} />
-        <Route path="/profile" element={<Profile />} />
-        <Route path="/security" element={<Security />} />
-        <Route path="/settings" element={<Settings />} />
         <Route path="/recovery" element={<Recovery />} />
+        <Route path="/help" element={<HelpCenter />} />
+        <Route element={<ProtectedRoute />}>
+          <Route path="/home" element={<Home />} />
+          <Route path="/history" element={<History />} />
+          <Route path="/history/:id" element={<TransactionDetail />} />
+          <Route path="/pay/phone" element={<PayPhone />} />
+          <Route path="/pay/qr" element={<PayQR />} />
+          <Route path="/pay/services" element={<PayServices />} />
+          <Route path="/pay/universities" element={<PayUniversities />} />
+          <Route path="/pay/banks" element={<PayBanks />} />
+          <Route path="/pay/international" element={<PayInternational />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/security" element={<Security />} />
+          <Route path="/settings" element={<Settings />} />
+        </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>

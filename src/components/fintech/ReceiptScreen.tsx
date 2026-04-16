@@ -3,6 +3,7 @@ import { CheckCircle2, Share2, Download, Copy, ArrowRight } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useNavigate } from 'react-router-dom';
 import { toast } from '@/hooks/use-toast';
+import { formatMoney } from '@/lib/format';
 
 interface ReceiptScreenProps {
   data: PaymentData;
@@ -16,34 +17,69 @@ export const ReceiptScreen = ({ data, transactionCode, balanceAfter, status = 'c
   const now = new Date();
 
   const statusConfig = {
-    completed: { icon: CheckCircle2, label: 'Operación exitosa', color: 'text-success', bg: 'bg-emerald-50' },
-    pending: { icon: CheckCircle2, label: 'Operación en proceso', color: 'text-warning', bg: 'bg-amber-50' },
-    failed: { icon: CheckCircle2, label: 'Operación fallida', color: 'text-destructive', bg: 'bg-red-50' },
+    completed: { icon: CheckCircle2, label: 'Enviado', color: 'text-success', bg: 'bg-emerald-50' },
+    pending: { icon: CheckCircle2, label: 'Pendiente', color: 'text-warning', bg: 'bg-amber-50' },
+    failed: { icon: CheckCircle2, label: 'Fallido', color: 'text-destructive', bg: 'bg-red-50' },
   };
 
   const s = statusConfig[status];
-  const currencySymbol = data.currency === 'PEN' ? 'S/' : data.currency === 'USD' ? '$' : '€';
 
   const handleCopy = () => {
     navigator.clipboard.writeText(transactionCode);
     toast({ title: 'Código copiado', description: transactionCode });
   };
 
+  const handleShare = async () => {
+    const shareText = `${s.label}: ${formatMoney(data.amount, data.currency)} para ${data.recipient}. Código ${transactionCode}.`;
+
+    if (navigator.share) {
+      await navigator.share({
+        title: 'Comprobante FinPay',
+        text: shareText,
+      });
+      return;
+    }
+
+    await navigator.clipboard.writeText(shareText);
+    toast({ title: 'Resumen copiado', description: 'Ya puedes pegarlo donde quieras compartirlo.' });
+  };
+
+  const handleDownload = () => {
+    const content = [
+      'FinPay',
+      `Estado: ${s.label}`,
+      `Monto: ${formatMoney(data.amount, data.currency)}`,
+      `Destinatario: ${data.recipient}`,
+      `Código: ${transactionCode}`,
+      `Fecha: ${now.toLocaleDateString('es-PE')}`,
+      `Hora: ${now.toLocaleTimeString('es-PE', { hour: '2-digit', minute: '2-digit' })}`,
+    ].join('\n');
+
+    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `finpay-${transactionCode}.txt`;
+    link.click();
+    URL.revokeObjectURL(url);
+    toast({ title: 'Comprobante descargado', description: 'Guardamos una copia simple en texto.' });
+  };
+
   const rows = [
     { label: 'Código de transacción', value: transactionCode, copyable: true },
-    { label: 'Monto', value: `${currencySymbol} ${data.amount.toLocaleString('es-PE', { minimumFractionDigits: 2 })}` },
+    { label: 'Monto', value: formatMoney(data.amount, data.currency) },
     { label: 'Moneda', value: data.currency },
     ...(data.exchangeRate ? [{ label: 'Tipo de cambio', value: `1 ${data.convertedCurrency} = ${data.exchangeRate} PEN` }] : []),
-    ...(data.convertedAmount ? [{ label: 'Equivalente en PEN', value: `S/ ${data.convertedAmount.toLocaleString('es-PE', { minimumFractionDigits: 2 })}` }] : []),
+    ...(data.convertedAmount ? [{ label: 'Recibe aprox.', value: formatMoney(data.convertedAmount, data.convertedCurrency || 'PEN') }] : []),
     { label: 'Destinatario', value: data.recipient },
     ...(data.bank ? [{ label: 'Banco destino', value: data.bank }] : []),
     ...(data.company ? [{ label: 'Empresa', value: data.company }] : []),
     ...(data.university ? [{ label: 'Universidad', value: data.university }] : []),
-    { label: 'Método', value: data.method },
-    { label: 'Comisión', value: data.fee === 0 ? 'Gratis' : `S/ ${data.fee.toFixed(2)}` },
+    { label: 'Cómo lo enviaste', value: data.method },
+    { label: 'Comisión', value: data.fee === 0 ? 'Gratis' : formatMoney(data.fee, data.currency) },
     { label: 'Fecha', value: now.toLocaleDateString('es-PE') },
     { label: 'Hora', value: now.toLocaleTimeString('es-PE', { hour: '2-digit', minute: '2-digit' }) },
-    { label: 'Saldo restante', value: `S/ ${balanceAfter.toLocaleString('es-PE', { minimumFractionDigits: 2 })}` },
+    { label: 'Saldo restante', value: formatMoney(balanceAfter, 'PEN') },
   ];
 
   return (
@@ -58,7 +94,7 @@ export const ReceiptScreen = ({ data, transactionCode, balanceAfter, status = 'c
       </div>
       <h2 className={`text-xl font-bold ${s.color}`}>{s.label}</h2>
       <p className="mt-1 text-3xl font-bold text-foreground">
-        {currencySymbol} {data.amount.toLocaleString('es-PE', { minimumFractionDigits: 2 })}
+        {formatMoney(data.amount, data.currency)}
       </p>
 
       <div className="mt-6 w-full rounded-xl border border-border bg-card p-4 fintech-shadow sm:p-5">
@@ -80,10 +116,10 @@ export const ReceiptScreen = ({ data, transactionCode, balanceAfter, status = 'c
       </div>
 
       <div className="mt-6 grid w-full gap-3 sm:grid-cols-2">
-        <Button variant="outline" size="lg" className="flex-1 gap-2">
+        <Button variant="outline" size="lg" className="flex-1 gap-2" onClick={() => void handleShare()}>
           <Share2 className="h-4 w-4" /> Compartir
         </Button>
-        <Button variant="outline" size="lg" className="flex-1 gap-2">
+        <Button variant="outline" size="lg" className="flex-1 gap-2" onClick={handleDownload}>
           <Download className="h-4 w-4" /> Descargar
         </Button>
       </div>

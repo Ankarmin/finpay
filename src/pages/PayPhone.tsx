@@ -18,14 +18,16 @@ const PayPhonePage = () => {
   const [selectedContact, setSelectedContact] = useState<string | null>(null);
   const [error, setError] = useState('');
   const favorites = mockRecipients.filter(r => r.isFavorite);
+  const amountValue = parseFloat(amount) || 0;
+  const canContinue = phone.length === 9 && amountValue > 0 && amountValue <= mockAccount.balance && amountValue <= 5000;
 
   const paymentData: PaymentData = {
     recipient: selectedContact ? mockRecipients.find(r => r.id === selectedContact)?.name || phone : phone,
     recipientDetail: phone,
-    amount: parseFloat(amount) || 0,
+    amount: amountValue,
     currency: 'PEN',
     fee: 0,
-    total: parseFloat(amount) || 0,
+    total: amountValue,
     method: 'Pago por celular',
   };
 
@@ -33,6 +35,7 @@ const PayPhonePage = () => {
     if (!phone || phone.length < 9) { setError('Ingresa un número válido de 9 dígitos'); return; }
     if (!amount || parseFloat(amount) <= 0) { setError('Ingresa un monto válido'); return; }
     if (parseFloat(amount) > mockAccount.balance) { setError('Saldo insuficiente'); return; }
+    if (parseFloat(amount) > 5000) { setError('El máximo diario por ahora es S/ 5,000.00'); return; }
     setError('');
     setStep('summary');
   };
@@ -143,6 +146,7 @@ const PayPhonePage = () => {
             step="0.01"
           />
           <p className="mt-1 text-xs text-muted-foreground">Saldo disponible: S/ {mockAccount.balance.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</p>
+          <p className="mt-1 text-xs text-muted-foreground">Máximo diario: S/ 5,000.00</p>
         </div>
 
         <div>
@@ -162,7 +166,7 @@ const PayPhonePage = () => {
           <PaymentSummary data={{ ...paymentData, description: description || undefined }} compact />
         )}
 
-        <Button size="xl" className="w-full" onClick={handleNext}>
+        <Button size="xl" className="w-full" onClick={handleNext} disabled={!canContinue}>
           Continuar
         </Button>
       </div>

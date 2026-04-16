@@ -12,26 +12,34 @@ import { QrCode, Camera, Loader2 } from 'lucide-react';
 const PayQRPage = () => {
   const [step, setStep] = useState<PaymentStep>('form');
   const [scanned, setScanned] = useState(false);
+  const [scanning, setScanning] = useState(false);
   const [amount, setAmount] = useState('');
   const [error, setError] = useState('');
+  const amountValue = parseFloat(amount) || 0;
+  const canContinue = amountValue > 0 && amountValue <= mockAccount.balance && amountValue <= 5000;
 
   const paymentData: PaymentData = {
     recipient: 'Tienda ABC',
     recipientDetail: 'QR-TIENDA-ABC-001',
-    amount: parseFloat(amount) || 0,
+    amount: amountValue,
     currency: 'PEN',
     fee: 0,
-    total: parseFloat(amount) || 0,
+    total: amountValue,
     method: 'Pago por QR',
   };
 
   const handleScan = () => {
-    setTimeout(() => setScanned(true), 1000);
+    setScanning(true);
+    setTimeout(() => {
+      setScanning(false);
+      setScanned(true);
+    }, 1000);
   };
 
   const handleNext = () => {
     if (!amount || parseFloat(amount) <= 0) { setError('Ingresa un monto válido'); return; }
     if (parseFloat(amount) > mockAccount.balance) { setError('Saldo insuficiente'); return; }
+    if (parseFloat(amount) > 5000) { setError('El máximo diario por ahora es S/ 5,000.00'); return; }
     setStep('summary');
   };
 
@@ -97,12 +105,12 @@ const PayQRPage = () => {
         {!scanned ? (
           <div className="flex flex-col items-center">
             <div className="relative flex aspect-square w-full max-w-[18rem] items-center justify-center rounded-2xl border-2 border-dashed border-primary/30 bg-accent sm:max-w-[20rem]">
-              <QrCode className="h-16 w-16 text-primary/40" />
+              {scanning ? <Loader2 className="h-16 w-16 animate-spin text-primary/40" /> : <QrCode className="h-16 w-16 text-primary/40" />}
               <div className="absolute inset-4 rounded-xl border-2 border-primary/20" />
             </div>
-            <p className="mt-4 text-sm text-muted-foreground text-center">Apunta la cámara al código QR del comercio</p>
-            <Button size="lg" className="mt-4 gap-2" onClick={handleScan}>
-              <Camera className="h-5 w-5" /> Simular escaneo
+            <p className="mt-4 text-sm text-muted-foreground text-center">{scanning ? 'Leyendo código...' : 'Apunta la cámara al código QR del comercio'}</p>
+            <Button size="lg" className="mt-4 gap-2" onClick={handleScan} disabled={scanning}>
+              <Camera className="h-5 w-5" /> {scanning ? 'Escaneando...' : 'Simular escaneo'}
             </Button>
           </div>
         ) : (
@@ -127,13 +135,14 @@ const PayQRPage = () => {
                 className="w-full rounded-xl border border-border bg-card px-4 py-3 text-2xl font-bold text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
               />
               <p className="mt-1 text-xs text-muted-foreground">Saldo: S/ {mockAccount.balance.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</p>
+              <p className="mt-1 text-xs text-muted-foreground">Máximo diario: S/ 5,000.00</p>
             </div>
 
             {error && <p className="text-sm text-destructive">{error}</p>}
 
             {amount && <PaymentSummary data={paymentData} compact />}
 
-            <Button size="xl" className="w-full" onClick={handleNext}>Continuar</Button>
+            <Button size="xl" className="w-full" onClick={handleNext} disabled={!canContinue}>Continuar</Button>
           </div>
         )}
       </div>

@@ -189,7 +189,15 @@ const PayServicesPage = () => {
             <span className="text-muted-foreground">Saldo disponible</span>
             <span className="font-semibold text-foreground">S/ {mockAccount.balance.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</span>
           </div>
-          <Button size="xl" className="w-full" onClick={() => setStep(amountValue >= 500 ? 'biometric' : 'processing')}>
+          <Button size="xl" className="w-full" onClick={() => {
+            if (amountValue >= 500) {
+              setStep('biometric');
+              return;
+            }
+
+            setStep('processing');
+            setTimeout(() => setStep('receipt'), 1500);
+          }}>
             Confirmar pago
           </Button>
           <Button variant="ghost" className="w-full" onClick={() => setStep('form')}>

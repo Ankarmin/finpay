@@ -4,14 +4,25 @@ import { BalanceCard } from '@/components/fintech/BalanceCard';
 import { QuickActions } from '@/components/fintech/QuickActions';
 import { TransactionItem } from '@/components/fintech/TransactionItem';
 import { mockAccount, mockTransactions, mockRecipients } from '@/data/mock';
-import { Bell, ChevronRight } from 'lucide-react';
+import { Bell, ChevronRight, CircleHelp, RotateCcw } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
+import { formatMoney } from '@/lib/format';
 
 const HomePage = () => {
   const [showBalance, setShowBalance] = useState(true);
   const navigate = useNavigate();
   const recentTransactions = mockTransactions.slice(0, 4);
   const frequentContacts = mockRecipients.filter(r => r.isFavorite);
+  const latestSend = mockTransactions.find((tx) => tx.type === 'send' || tx.type === 'payment');
+
+  const getRepeatRoute = () => {
+    if (!latestSend) return '/history';
+    if (latestSend.category === 'phone') return '/pay/phone';
+    if (latestSend.category === 'service' || latestSend.category === 'company') return '/pay/services';
+    if (latestSend.category === 'university') return '/pay/universities';
+    if (latestSend.category === 'bank_international' || latestSend.category === 'interbank_foreign') return '/pay/international';
+    return '/pay/banks';
+  };
 
   return (
     <AppLayout>
@@ -23,7 +34,7 @@ const HomePage = () => {
                 <p className="text-sm text-primary-foreground/80">Hola,</p>
                 <h1 className="text-lg font-bold text-primary-foreground">Juan Pérez</h1>
               </div>
-              <button className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 text-primary-foreground transition-colors hover:bg-white/20 active:scale-95">
+              <button onClick={() => navigate('/settings')} className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-white/10 text-primary-foreground transition-colors hover:bg-white/20 active:scale-95">
                 <Bell className="h-5 w-5" />
                 <span className="absolute -right-0.5 -top-0.5 h-2.5 w-2.5 rounded-full bg-red-400 ring-2 ring-primary" />
               </button>
@@ -31,7 +42,6 @@ const HomePage = () => {
             <BalanceCard
               balance={mockAccount.balance}
               currency={mockAccount.currency}
-              currencySymbol={mockAccount.currencySymbol}
               accountNumber={mockAccount.accountNumber}
               showBalance={showBalance}
               onToggleVisibility={() => setShowBalance(!showBalance)}
@@ -44,6 +54,40 @@ const HomePage = () => {
             <section>
               <h2 className="mb-3 text-sm font-semibold text-foreground">Acciones rápidas</h2>
               <QuickActions />
+            </section>
+
+            {latestSend && (
+              <section className="rounded-xl border border-border bg-card p-4 fintech-shadow">
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <h2 className="text-sm font-semibold text-foreground">Repetir última operación</h2>
+                    <p className="mt-1 text-sm text-muted-foreground">Vuelve a hacer una acción reciente sin empezar desde cero.</p>
+                  </div>
+                  <RotateCcw className="h-4 w-4 shrink-0 text-primary" />
+                </div>
+                <div className="mt-3 flex flex-wrap items-center justify-between gap-3 rounded-xl bg-accent p-3">
+                  <div className="min-w-0">
+                    <p className="break-words text-sm font-medium text-foreground">{latestSend.description}</p>
+                    <p className="text-xs text-muted-foreground">{formatMoney(latestSend.amount, latestSend.currency)}</p>
+                  </div>
+                  <button onClick={() => navigate(getRepeatRoute())} className="shrink-0 text-sm font-medium text-primary">
+                    Repetir
+                  </button>
+                </div>
+              </section>
+            )}
+
+            <section className="rounded-xl border border-border bg-card p-4 fintech-shadow">
+              <div className="flex items-start justify-between gap-3">
+                <div>
+                  <h2 className="text-sm font-semibold text-foreground">¿Necesitas ayuda?</h2>
+                  <p className="mt-1 text-sm text-muted-foreground">Encuentra respuestas rápidas, estados de operación y contacto con soporte.</p>
+                </div>
+                <CircleHelp className="h-4 w-4 shrink-0 text-primary" />
+              </div>
+              <button onClick={() => navigate('/help')} className="mt-3 text-sm font-medium text-primary">
+                Abrir ayuda
+              </button>
             </section>
 
             {frequentContacts.length > 0 && (

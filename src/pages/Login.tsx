@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button';
 import { useAuthStore } from '@/store/auth';
 import { useNavigate } from 'react-router-dom';
 
-export const LoginPage = () => {
+const LoginPage = () => {
   const [mode, setMode] = useState<'biometric' | 'pin'>('biometric');
   const [pin, setPin] = useState('');
   const [loading, setLoading] = useState(false);
@@ -62,13 +62,13 @@ export const LoginPage = () => {
           </div>
 
           <div className="relative z-10 mx-auto flex min-h-[236px] w-full max-w-3xl flex-col px-4 pb-6 pt-4 safe-top sm:px-6">
-            <div className="mb-4 flex items-center justify-between">
-              <div className="flex items-center gap-1">
-                <HelpCircle className="h-5 w-5 text-primary-foreground/70" />
-              </div>
-              <div className="flex items-center gap-1">
-                <Phone className="h-5 w-5 text-primary-foreground/70" />
-              </div>
+              <div className="mb-4 flex items-center justify-between">
+              <button type="button" onClick={() => navigate('/help')} className="flex items-center gap-1 rounded-xl p-2 text-primary-foreground/70 transition-colors hover:bg-white/10">
+                <HelpCircle className="h-5 w-5" />
+              </button>
+              <button type="button" onClick={() => { window.location.href = 'tel:+51800000000'; }} className="flex items-center gap-1 rounded-xl p-2 text-primary-foreground/70 transition-colors hover:bg-white/10">
+                <Phone className="h-5 w-5" />
+              </button>
             </div>
 
             <div className="flex flex-1 flex-col items-center justify-center pb-2">
@@ -94,7 +94,12 @@ export const LoginPage = () => {
             {isLocked && (
               <div className="mb-4 flex items-center gap-2 rounded-xl border border-destructive/20 bg-destructive/5 p-3 text-sm text-destructive">
                 <AlertTriangle className="h-4 w-4 shrink-0" />
-                Cuenta bloqueada por seguridad. Intenta en {lockedMinutes} min.
+                <div className="min-w-0">
+                  <p>Cuenta bloqueada por seguridad. Intenta en {lockedMinutes} min.</p>
+                  <button type="button" onClick={() => navigate('/help')} className="mt-1 text-xs font-medium underline underline-offset-2">
+                    Necesito ayuda
+                  </button>
+                </div>
               </div>
             )}
 
@@ -137,7 +142,14 @@ export const LoginPage = () => {
                   ))}
                 </div>
 
-                {error && <p className="mb-3 text-center text-sm text-destructive">{error}</p>}
+                {error && (
+                  <div className="mb-3 rounded-xl border border-destructive/20 bg-destructive/5 p-3 text-center text-sm text-destructive">
+                    <p>{error}</p>
+                    <button type="button" onClick={() => navigate('/help')} className="mt-1 text-xs font-medium underline underline-offset-2">
+                      Ver cómo resolverlo
+                    </button>
+                  </div>
+                )}
 
                 <div className="grid grid-cols-3 gap-2 sm:gap-3">
                   {[1, 2, 3, 4, 5, 6, 7, 8, 9, null, 0, 'del'].map((key, i) => (

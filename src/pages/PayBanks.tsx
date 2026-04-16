@@ -21,17 +21,19 @@ const PayBanksPage = () => {
   const nationalBanks = mockBanks.filter(b => !b.isInternational);
   const bank = nationalBanks.find(b => b.id === selectedBank);
   const filtered = nationalBanks.filter(b => b.name.toLowerCase().includes(search.toLowerCase()));
+  const amountValue = parseFloat(amount) || 0;
 
   const paymentData: PaymentData = {
     recipient: recipientName,
     recipientDetail: accountNumber,
-    amount: parseFloat(amount) || 0,
+    amount: amountValue,
     currency: 'PEN',
-    fee: parseFloat(amount) >= 1000 ? 3.50 : 0,
-    total: (parseFloat(amount) || 0) + (parseFloat(amount) >= 1000 ? 3.50 : 0),
+    fee: amountValue >= 1000 ? 3.50 : 0,
+    total: amountValue + (amountValue >= 1000 ? 3.50 : 0),
     method: 'Transferencia bancaria nacional',
     bank: bank?.name,
   };
+  const canContinue = !!selectedBank && !!accountNumber && !!recipientName && amountValue > 0 && paymentData.total <= mockAccount.balance && amountValue <= 5000;
 
   const handleNext = () => {
     if (!selectedBank) { setError('Selecciona un banco'); return; }
@@ -39,6 +41,7 @@ const PayBanksPage = () => {
     if (!recipientName) { setError('Ingresa el nombre del destinatario'); return; }
     if (!amount || parseFloat(amount) <= 0) { setError('Ingresa un monto válido'); return; }
     if (paymentData.total > mockAccount.balance) { setError('Saldo insuficiente'); return; }
+    if (amountValue > 5000) { setError('El máximo diario por ahora es S/ 5,000.00'); return; }
     setStep('summary');
   };
 
@@ -104,11 +107,12 @@ const PayBanksPage = () => {
               <label className="mb-1 block text-sm font-medium text-foreground">Monto (S/)</label>
               <input type="number" placeholder="0.00" value={amount} onChange={e => { setAmount(e.target.value); setError(''); }} className="w-full rounded-xl border border-border bg-card px-4 py-3 text-2xl font-bold focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary" />
               <p className="mt-1 text-xs text-muted-foreground">Saldo: S/ {mockAccount.balance.toLocaleString('es-PE', { minimumFractionDigits: 2 })}</p>
+              <p className="mt-1 text-xs text-muted-foreground">Máximo diario: S/ 5,000.00</p>
               {parseFloat(amount) >= 1000 && <p className="mt-1 text-xs text-warning">Comisión: S/ 3.50</p>}
             </div>
             {error && <p className="text-sm text-destructive">{error}</p>}
             {(recipientName || accountNumber || amount) && <PaymentSummary data={paymentData} compact />}
-            <Button size="xl" className="w-full" onClick={handleNext}>Continuar</Button>
+            <Button size="xl" className="w-full" onClick={handleNext} disabled={!canContinue}>Continuar</Button>
           </>
         )}
       </div>
