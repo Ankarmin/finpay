@@ -7,7 +7,7 @@ interface AppLayoutProps {
 
 export const AppLayout = ({ children, showNav = true }: AppLayoutProps) => {
   return (
-    <div className="mx-auto min-h-screen max-w-lg bg-background">
+    <div className="fintech-canvas mx-auto min-h-screen w-full max-w-lg">
       <main className={showNav ? "pb-20" : ""}>
         {children}
       </main>

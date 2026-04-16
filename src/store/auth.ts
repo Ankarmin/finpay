@@ -30,7 +30,6 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     if (state.isLocked && state.lockUntil && Date.now() >= state.lockUntil) {
       set({ isLocked: false, lockUntil: null, failedAttempts: 0 });
     }
-    // Mock validation: pin is "123456"
     if (pin === '123456') {
       set({ isAuthenticated: true, failedAttempts: 0, isLocked: false, lockUntil: null });
       return true;

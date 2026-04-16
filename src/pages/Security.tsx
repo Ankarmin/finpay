@@ -15,7 +15,7 @@ const SecurityPage = () => {
     <AppLayout>
       <PageHeader title="Seguridad" />
       <div className="px-4 py-4 mx-auto max-w-lg space-y-4 animate-fade-in">
-        <div className="flex items-center gap-3 rounded-xl bg-accent p-4">
+        <div className="flex items-center gap-3 rounded-xl bg-accent p-4 fintech-shadow">
           <Shield className="h-6 w-6 text-primary" />
           <div>
             <p className="text-sm font-semibold text-foreground">Tu cuenta está protegida</p>
@@ -23,7 +23,7 @@ const SecurityPage = () => {
           </div>
         </div>
 
-        <div className="rounded-xl border border-border bg-card">
+        <div className="rounded-xl border border-border bg-card fintech-shadow">
           {items.map((item, i) => (
             <button key={i} className="flex w-full items-center gap-3 px-4 py-3.5 text-left transition-colors hover:bg-muted/50 active:bg-muted border-b border-border last:border-0">
               <item.icon className="h-5 w-5 text-muted-foreground" />

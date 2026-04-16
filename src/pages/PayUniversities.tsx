@@ -72,7 +72,7 @@ const PayUniversitiesPage = () => {
             </div>
             <div className="space-y-2">
               {filtered.map(u => (
-                <button key={u.id} onClick={() => setSelectedUni(u.id)} className="flex w-full items-center gap-3 rounded-xl border border-border bg-card p-4 text-left transition-all hover:border-primary/30 active:scale-95">
+                <button key={u.id} onClick={() => setSelectedUni(u.id)} className="flex w-full items-center gap-3 rounded-xl border border-border bg-card p-4 text-left transition-all hover:border-primary/30 active:scale-95 fintech-shadow">
                   <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary"><GraduationCap className="h-5 w-5" /></div>
                   <div><p className="text-sm font-medium text-foreground">{u.name}</p><p className="text-xs text-muted-foreground">{u.concepts.join(' · ')}</p></div>
                 </button>
@@ -81,7 +81,7 @@ const PayUniversitiesPage = () => {
           </>
         ) : (
           <>
-            <div className="flex items-center gap-3 rounded-xl bg-accent p-3">
+            <div className="flex items-center gap-3 rounded-xl bg-accent p-3 fintech-shadow">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary"><GraduationCap className="h-5 w-5" /></div>
               <div className="flex-1"><p className="text-sm font-medium text-foreground">{uni?.name}</p></div>
               <button onClick={() => { setSelectedUni(null); setSelectedConcept(''); }} className="text-xs text-primary font-medium">Cambiar</button>

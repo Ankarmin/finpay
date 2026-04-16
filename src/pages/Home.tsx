@@ -16,8 +16,7 @@ const HomePage = () => {
   return (
     <AppLayout>
       <div className="animate-fade-in">
-        {/* Header */}
-        <div className="fintech-gradient px-4 pb-6 pt-4 safe-top">
+        <div className="fintech-gradient min-h-[236px] px-4 pb-6 pt-4 safe-top">
           <div className="mx-auto max-w-lg">
             <div className="flex items-center justify-between mb-4">
               <div>
@@ -41,13 +40,11 @@ const HomePage = () => {
         </div>
 
         <div className="px-4 py-4 space-y-6 mx-auto max-w-lg">
-          {/* Quick Actions */}
           <section>
             <h2 className="mb-3 text-sm font-semibold text-foreground">Acciones rápidas</h2>
             <QuickActions />
           </section>
 
-          {/* Frequent contacts */}
           {frequentContacts.length > 0 && (
             <section>
               <h2 className="mb-3 text-sm font-semibold text-foreground">Contactos frecuentes</h2>
@@ -68,7 +65,6 @@ const HomePage = () => {
             </section>
           )}
 
-          {/* Recent transactions */}
           <section>
             <div className="mb-2 flex items-center justify-between">
               <h2 className="text-sm font-semibold text-foreground">Movimientos recientes</h2>
@@ -76,7 +72,7 @@ const HomePage = () => {
                 Ver todo <ChevronRight className="h-3.5 w-3.5" />
               </button>
             </div>
-            <div className="rounded-xl border border-border bg-card">
+            <div className="rounded-xl border border-border bg-card fintech-shadow">
               {recentTransactions.map(tx => (
                 <TransactionItem key={tx.id} transaction={tx} onClick={() => navigate(`/history/${tx.id}`)} />
               ))}

@@ -107,7 +107,7 @@ const PayQRPage = () => {
           </div>
         ) : (
           <div className="space-y-4">
-            <div className="flex items-center gap-3 rounded-xl bg-accent p-3">
+            <div className="flex items-center gap-3 rounded-xl bg-accent p-3 fintech-shadow">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
                 <QrCode className="h-5 w-5" />
               </div>

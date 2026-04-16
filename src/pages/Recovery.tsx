@@ -17,7 +17,6 @@ const RecoveryPage = () => {
 
   return (
     <div className="flex min-h-screen flex-col bg-background px-6 py-8">
-      {/* Logo */}
       <div className="mb-6 flex items-center gap-3">
         <button onClick={() => navigate('/')} className="flex h-10 w-10 items-center justify-center rounded-xl hover:bg-muted">
           <ArrowLeft className="h-5 w-5 text-foreground" />

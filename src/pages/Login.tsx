@@ -48,10 +48,8 @@ export const LoginPage = () => {
   };
 
   return (
-    <div className="flex min-h-screen flex-col bg-background">
-      {/* Hero gradient header */}
-      <div className="relative flex flex-col items-center overflow-hidden">
-        {/* Background with gradient and decorative elements */}
+    <div className="fintech-canvas mx-auto flex min-h-screen w-full max-w-lg flex-col">
+      <div className="relative overflow-hidden">
         <div className="absolute inset-0 fintech-gradient" />
         <div className="absolute inset-0 opacity-10">
           <div className="absolute -left-20 -top-20 h-64 w-64 rounded-full bg-white/20" />
@@ -60,33 +58,31 @@ export const LoginPage = () => {
           <div className="absolute right-1/4 -bottom-10 h-48 w-48 rounded-full bg-white/10" />
         </div>
 
-        {/* Top bar */}
-        <div className="relative z-10 flex w-full max-w-lg items-center justify-between px-5 pt-12 pb-2">
-          <div className="flex items-center gap-1">
-            <HelpCircle className="h-5 w-5 text-primary-foreground/70" />
+        <div className="relative z-10 mx-auto flex min-h-[236px] w-full max-w-lg flex-col px-4 pb-6 pt-4 safe-top">
+          <div className="mb-4 flex items-center justify-between">
+            <div className="flex items-center gap-1">
+              <HelpCircle className="h-5 w-5 text-primary-foreground/70" />
+            </div>
+            <div className="flex items-center gap-1">
+              <Phone className="h-5 w-5 text-primary-foreground/70" />
+            </div>
           </div>
-          <div className="flex items-center gap-1">
-            <Phone className="h-5 w-5 text-primary-foreground/70" />
-          </div>
-        </div>
 
-        {/* Logo */}
-        <div className="relative z-10 flex flex-col items-center pb-10 pt-6">
-          <img
-            src="/favicon.png"
-            alt="FinPay"
-            className="mb-3 h-20 w-20 drop-shadow-lg brightness-0 invert"
-          />
-          <span className="text-2xl font-bold tracking-tight text-primary-foreground">
-            FinPay
-          </span>
+          <div className="flex flex-1 flex-col items-center justify-center pb-2">
+            <img
+              src="/favicon.png"
+              alt="FinPay"
+              className="mb-2.5 h-16 w-16 drop-shadow-lg brightness-0 invert"
+            />
+            <span className="text-xl font-bold tracking-tight text-primary-foreground">
+              FinPay
+            </span>
+          </div>
         </div>
       </div>
 
-      {/* Login card */}
-      <div className="relative z-10 -mt-5 flex flex-1 flex-col rounded-t-3xl bg-card shadow-2xl">
+      <div className="relative z-10 -mt-4 flex flex-1 flex-col rounded-t-3xl bg-card">
         <div className="mx-auto w-full max-w-sm px-6 pt-8 pb-6 animate-fade-in">
-          {/* Greeting */}
           <div className="mb-6 text-center">
             <h1 className="text-2xl font-bold text-foreground">{getGreeting()}</h1>
             <p className="mt-1 text-sm text-muted-foreground">¡Qué bueno tenerte por aquí!</p>
@@ -140,7 +136,6 @@ export const LoginPage = () => {
 
               {error && <p className="mb-3 text-center text-sm text-destructive">{error}</p>}
 
-              {/* Numeric keypad */}
               <div className="grid grid-cols-3 gap-2">
                 {[1,2,3,4,5,6,7,8,9,null,0,'del'].map((key, i) => (
                   <button
@@ -176,7 +171,6 @@ export const LoginPage = () => {
           )}
         </div>
 
-        {/* Version */}
         <div className="mt-auto pb-6 text-center">
           <p className="text-xs text-muted-foreground/50">V.1.0.0</p>
         </div>

@@ -21,7 +21,6 @@ const ProfilePage = () => {
     <AppLayout>
       <PageHeader title="Perfil" showBack={false} />
       <div className="px-4 py-4 mx-auto max-w-lg space-y-4 animate-fade-in">
-        {/* Avatar */}
         <div className="flex flex-col items-center py-4">
           <div className="flex h-20 w-20 items-center justify-center rounded-full bg-primary text-2xl font-bold text-primary-foreground">JP</div>
           <h2 className="mt-3 text-lg font-bold text-foreground">Juan Pérez</h2>
@@ -29,7 +28,7 @@ const ProfilePage = () => {
           <p className="text-xs text-muted-foreground">+51 987 654 321</p>
         </div>
 
-        <div className="rounded-xl border border-border bg-card">
+        <div className="rounded-xl border border-border bg-card fintech-shadow">
           {items.map((item, i) => (
             <button
               key={i}

@@ -35,7 +35,6 @@ const HistoryPage = () => {
     return true;
   });
 
-  // Group by date
   const grouped = filtered.reduce((acc, tx) => {
     const date = tx.date;
     if (!acc[date]) acc[date] = [];
@@ -52,7 +51,6 @@ const HistoryPage = () => {
       } />
 
       <div className="px-4 py-3 mx-auto max-w-lg space-y-3">
-        {/* Search */}
         <div className="relative">
           <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
           <input
@@ -69,9 +67,8 @@ const HistoryPage = () => {
           )}
         </div>
 
-        {/* Filters */}
         {showFilters && (
-          <div className="space-y-3 animate-fade-in rounded-xl border border-border bg-card p-3">
+          <div className="space-y-3 animate-fade-in rounded-xl border border-border bg-card p-3 fintech-shadow">
             <div>
               <p className="mb-2 text-xs font-medium text-muted-foreground">Tipo</p>
               <div className="flex flex-wrap gap-2">
@@ -95,7 +92,6 @@ const HistoryPage = () => {
           </div>
         )}
 
-        {/* List */}
         {Object.entries(grouped).length === 0 ? (
           <div className="py-16 text-center text-sm text-muted-foreground">
             No se encontraron transacciones
@@ -104,7 +100,7 @@ const HistoryPage = () => {
           Object.entries(grouped).map(([date, txs]) => (
             <div key={date}>
               <p className="mb-1 text-xs font-medium text-muted-foreground">{new Date(date).toLocaleDateString('es-PE', { weekday: 'long', day: 'numeric', month: 'long' })}</p>
-              <div className="rounded-xl border border-border bg-card">
+              <div className="rounded-xl border border-border bg-card fintech-shadow">
                 {txs.map(tx => (
                   <TransactionItem key={tx.id} transaction={tx} onClick={() => navigate(`/history/${tx.id}`)} />
                 ))}

@@ -48,7 +48,6 @@ export const ReceiptScreen = ({ data, transactionCode, balanceAfter, status = 'c
 
   return (
     <div className="flex flex-col items-center px-4 py-6 animate-fade-in">
-      {/* Logo */}
       <div className="mb-4 flex items-center gap-2">
         <img src="/favicon.png" alt="FinPay" className="h-10 w-10" />
         <span className="text-lg font-bold text-foreground">FinPay</span>
@@ -62,7 +61,7 @@ export const ReceiptScreen = ({ data, transactionCode, balanceAfter, status = 'c
         {currencySymbol} {data.amount.toLocaleString('es-PE', { minimumFractionDigits: 2 })}
       </p>
 
-      <div className="mt-6 w-full rounded-xl border border-border bg-card p-4">
+      <div className="mt-6 w-full rounded-xl border border-border bg-card p-4 fintech-shadow">
         <div className="space-y-3">
           {rows.map((row, i) => (
             <div key={i} className="flex items-start justify-between gap-3 text-sm">

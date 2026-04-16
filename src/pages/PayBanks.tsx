@@ -78,7 +78,7 @@ const PayBanksPage = () => {
             </div>
             <div className="space-y-2">
               {filtered.map(b => (
-                <button key={b.id} onClick={() => setSelectedBank(b.id)} className="flex w-full items-center gap-3 rounded-xl border border-border bg-card p-4 text-left transition-all hover:border-primary/30 active:scale-95">
+                <button key={b.id} onClick={() => setSelectedBank(b.id)} className="flex w-full items-center gap-3 rounded-xl border border-border bg-card p-4 text-left transition-all hover:border-primary/30 active:scale-95 fintech-shadow">
                   <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary"><Landmark className="h-5 w-5" /></div>
                   <div><p className="text-sm font-medium text-foreground">{b.name}</p><p className="text-xs text-muted-foreground">{b.country}</p></div>
                 </button>
@@ -87,7 +87,7 @@ const PayBanksPage = () => {
           </>
         ) : (
           <>
-            <div className="flex items-center gap-3 rounded-xl bg-accent p-3">
+            <div className="flex items-center gap-3 rounded-xl bg-accent p-3 fintech-shadow">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary"><Landmark className="h-5 w-5" /></div>
               <div className="flex-1"><p className="text-sm font-medium text-foreground">{bank?.name}</p></div>
               <button onClick={() => setSelectedBank(null)} className="text-xs text-primary font-medium">Cambiar</button>

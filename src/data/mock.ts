@@ -1,4 +1,12 @@
-import type { Account, Transaction, PaymentRecipient, Service, Company, University, Bank, ExchangeRate } from '@/types';
+import type {
+  Account,
+  Transaction,
+  PaymentRecipient,
+  Service,
+  Company,
+  University,
+  InternationalTransferCountry,
+} from '@/types';
 
 export const mockAccount: Account = {
   id: '1',
@@ -51,21 +59,26 @@ export const mockRecipients: PaymentRecipient[] = [
 ];
 
 export const mockServices: Service[] = [
-  { id: '1', name: 'Luz', category: 'Servicios básicos', icon: 'Zap' },
-  { id: '2', name: 'Agua', category: 'Servicios básicos', icon: 'Droplets' },
-  { id: '3', name: 'Gas', category: 'Servicios básicos', icon: 'Flame' },
-  { id: '4', name: 'Internet', category: 'Telecomunicaciones', icon: 'Wifi' },
-  { id: '5', name: 'Celular', category: 'Telecomunicaciones', icon: 'Smartphone' },
-  { id: '6', name: 'Cable', category: 'Telecomunicaciones', icon: 'Tv' },
+  { id: 'power', name: 'Luz', category: 'Servicios básicos', icon: 'Zap' },
+  { id: 'water', name: 'Agua', category: 'Servicios básicos', icon: 'Droplets' },
+  { id: 'gas', name: 'Gas', category: 'Servicios básicos', icon: 'Flame' },
+  { id: 'internet', name: 'Internet', category: 'Telecomunicaciones', icon: 'Wifi' },
+  { id: 'mobile', name: 'Celular', category: 'Telecomunicaciones', icon: 'Smartphone' },
+  { id: 'tv', name: 'Cable', category: 'Telecomunicaciones', icon: 'Tv' },
+  { id: 'insurance', name: 'Seguros', category: 'Protección', icon: 'Shield' },
 ];
 
 export const mockCompanies: Company[] = [
-  { id: '1', name: 'Movistar', category: 'Telecomunicaciones' },
-  { id: '2', name: 'Claro', category: 'Telecomunicaciones' },
-  { id: '3', name: 'Entel', category: 'Telecomunicaciones' },
-  { id: '4', name: 'Rimac Seguros', category: 'Seguros' },
-  { id: '5', name: 'La Positiva', category: 'Seguros' },
-  { id: '6', name: 'Enel', category: 'Energía' },
+  { id: 'movistar', name: 'Movistar', category: 'Telecomunicaciones', serviceIds: ['internet', 'mobile', 'tv'] },
+  { id: 'claro', name: 'Claro', category: 'Telecomunicaciones', serviceIds: ['internet', 'mobile', 'tv'] },
+  { id: 'entel', name: 'Entel', category: 'Telecomunicaciones', serviceIds: ['internet', 'mobile'] },
+  { id: 'directv', name: 'DirecTV', category: 'Televisión', serviceIds: ['tv'] },
+  { id: 'enel', name: 'Enel', category: 'Energía', serviceIds: ['power'] },
+  { id: 'luz-del-sur', name: 'Luz del Sur', category: 'Energía', serviceIds: ['power'] },
+  { id: 'sedapal', name: 'Sedapal', category: 'Agua', serviceIds: ['water'] },
+  { id: 'calidda', name: 'Cálidda', category: 'Gas', serviceIds: ['gas'] },
+  { id: 'rimac', name: 'Rimac Seguros', category: 'Seguros', serviceIds: ['insurance'] },
+  { id: 'positiva', name: 'La Positiva', category: 'Seguros', serviceIds: ['insurance'] },
 ];
 
 export const mockUniversities: University[] = [
@@ -73,9 +86,10 @@ export const mockUniversities: University[] = [
   { id: '2', name: 'Universidad de Lima', concepts: ['Pensión', 'Matrícula', 'Trámites'] },
   { id: '3', name: 'UPC', concepts: ['Pensión', 'Matrícula', 'Carnet', 'Otros'] },
   { id: '4', name: 'USIL', concepts: ['Pensión', 'Matrícula', 'Trámites administrativos'] },
+  { id: '5', name: 'UNMSM', concepts: ['Matrícula', 'Pensión', 'Derechos académicos', 'Constancias'] },
 ];
 
-export const mockBanks: Bank[] = [
+export const mockBanks = [
   { id: '1', name: 'BCP', country: 'Perú', isInternational: false },
   { id: '2', name: 'Interbank', country: 'Perú', isInternational: false },
   { id: '3', name: 'BBVA', country: 'Perú', isInternational: false },
@@ -86,15 +100,117 @@ export const mockBanks: Bank[] = [
   { id: '8', name: 'HSBC', country: 'Reino Unido', swiftCode: 'HSBCGB2L', isInternational: true },
 ];
 
-export const mockExchangeRates: ExchangeRate[] = [
-  { from: 'PEN', to: 'USD', rate: 0.2632, updatedAt: '2026-04-16T14:00:00Z' },
-  { from: 'PEN', to: 'EUR', rate: 0.2410, updatedAt: '2026-04-16T14:00:00Z' },
-  { from: 'USD', to: 'PEN', rate: 3.80, updatedAt: '2026-04-16T14:00:00Z' },
-  { from: 'EUR', to: 'PEN', rate: 4.15, updatedAt: '2026-04-16T14:00:00Z' },
-];
-
-export const currencies = [
-  { code: 'PEN', symbol: 'S/', name: 'Sol peruano' },
-  { code: 'USD', symbol: '$', name: 'Dólar americano' },
-  { code: 'EUR', symbol: '€', name: 'Euro' },
+export const mockInternationalTransferCountries: InternationalTransferCountry[] = [
+  {
+    id: 'us',
+    name: 'Estados Unidos',
+    flag: '🇺🇸',
+    currency: 'USD',
+    banks: [
+      {
+        id: 'chase',
+        name: 'Chase Bank',
+        country: 'Estados Unidos',
+        currency: 'USD',
+        exchangeRate: 0.2665,
+        commission: 4.5,
+        swiftCode: 'CHASUS33',
+        updatedAt: '2026-04-16T14:00:00Z',
+      },
+      {
+        id: 'boa',
+        name: 'Bank of America',
+        country: 'Estados Unidos',
+        currency: 'USD',
+        exchangeRate: 0.2648,
+        commission: 3.9,
+        swiftCode: 'BOFAUS3N',
+        updatedAt: '2026-04-16T14:00:00Z',
+      },
+    ],
+  },
+  {
+    id: 'es',
+    name: 'España',
+    flag: '🇪🇸',
+    currency: 'EUR',
+    banks: [
+      {
+        id: 'santander',
+        name: 'Santander',
+        country: 'España',
+        currency: 'EUR',
+        exchangeRate: 0.2435,
+        commission: 3.2,
+        swiftCode: 'BSCHESMMXXX',
+        updatedAt: '2026-04-16T14:00:00Z',
+      },
+      {
+        id: 'bbva-es',
+        name: 'BBVA España',
+        country: 'España',
+        currency: 'EUR',
+        exchangeRate: 0.2421,
+        commission: 2.8,
+        swiftCode: 'BBVAESMMXXX',
+        updatedAt: '2026-04-16T14:00:00Z',
+      },
+    ],
+  },
+  {
+    id: 'mx',
+    name: 'México',
+    flag: '🇲🇽',
+    currency: 'MXN',
+    banks: [
+      {
+        id: 'bbva-mx',
+        name: 'BBVA México',
+        country: 'México',
+        currency: 'MXN',
+        exchangeRate: 5.18,
+        commission: 44,
+        swiftCode: 'BCMRMXMM',
+        updatedAt: '2026-04-16T14:00:00Z',
+      },
+      {
+        id: 'banorte',
+        name: 'Banorte',
+        country: 'México',
+        currency: 'MXN',
+        exchangeRate: 5.11,
+        commission: 36,
+        swiftCode: 'MENOMXMT',
+        updatedAt: '2026-04-16T14:00:00Z',
+      },
+    ],
+  },
+  {
+    id: 'uk',
+    name: 'Reino Unido',
+    flag: '🇬🇧',
+    currency: 'GBP',
+    banks: [
+      {
+        id: 'hsbc-uk',
+        name: 'HSBC UK',
+        country: 'Reino Unido',
+        currency: 'GBP',
+        exchangeRate: 0.2084,
+        commission: 2.6,
+        swiftCode: 'HBUKGB4B',
+        updatedAt: '2026-04-16T14:00:00Z',
+      },
+      {
+        id: 'barclays',
+        name: 'Barclays',
+        country: 'Reino Unido',
+        currency: 'GBP',
+        exchangeRate: 0.2068,
+        commission: 0,
+        swiftCode: 'BARCGB22',
+        updatedAt: '2026-04-16T14:00:00Z',
+      },
+    ],
+  },
 ];

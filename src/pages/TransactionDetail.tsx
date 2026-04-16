@@ -1,7 +1,7 @@
 import { AppLayout } from '@/components/layout/AppLayout';
 import { PageHeader } from '@/components/layout/PageHeader';
 import { mockTransactions } from '@/data/mock';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import { CheckCircle2, Clock, XCircle, Copy, Share2, Download } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { toast } from '@/hooks/use-toast';
@@ -16,7 +16,6 @@ const statusConfig = {
 
 const TransactionDetailPage = () => {
   const { id } = useParams();
-  const navigate = useNavigate();
   const tx = mockTransactions.find(t => t.id === id);
 
   if (!tx) {
@@ -62,7 +61,7 @@ const TransactionDetailPage = () => {
           <p className="text-sm text-muted-foreground mt-1">{tx.description}</p>
         </div>
 
-        <div className="rounded-xl border border-border bg-card p-4 space-y-3">
+        <div className="rounded-xl border border-border bg-card p-4 space-y-3 fintech-shadow">
           {rows.map((row, i) => (
             <div key={i} className="flex items-start justify-between gap-3 text-sm">
               <span className="text-muted-foreground">{row.label}</span>

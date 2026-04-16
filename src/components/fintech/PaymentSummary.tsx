@@ -1,5 +1,5 @@
 import type { PaymentData } from '@/types';
-import { Shield, Calendar, Clock, CreditCard, ArrowRight } from 'lucide-react';
+import { Shield } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 interface PaymentSummaryProps {
@@ -32,7 +32,7 @@ export const PaymentSummary = ({ data, showBiometric, compact }: PaymentSummaryP
   ].filter(r => r.value);
 
   return (
-    <div className={cn("rounded-xl border border-border bg-card", compact ? "p-3" : "p-4")}>
+    <div className={cn("rounded-xl border border-border bg-card fintech-shadow", compact ? "p-3" : "p-4")}>
       <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-foreground">
         <Shield className="h-4 w-4 text-primary" />
         Resumen de operación

@@ -15,7 +15,7 @@ const SettingsPage = () => {
     <AppLayout>
       <PageHeader title="Configuración" showBack={false} />
       <div className="px-4 py-4 mx-auto max-w-lg animate-fade-in">
-        <div className="rounded-xl border border-border bg-card">
+        <div className="rounded-xl border border-border bg-card fintech-shadow">
           {items.map((item, i) => (
             <button key={i} className="flex w-full items-center gap-3 px-4 py-3.5 text-left transition-colors hover:bg-muted/50 active:bg-muted border-b border-border last:border-0">
               <item.icon className="h-5 w-5 text-muted-foreground" />

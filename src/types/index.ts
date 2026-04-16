@@ -1,11 +1,3 @@
-export interface User {
-  id: string;
-  name: string;
-  email: string;
-  phone: string;
-  avatar?: string;
-}
-
 export interface Account {
   id: string;
   balance: number;
@@ -58,6 +50,7 @@ export interface Company {
   name: string;
   logo?: string;
   category: string;
+   serviceIds: string[];
 }
 
 export interface University {
@@ -67,19 +60,23 @@ export interface University {
   concepts: string[];
 }
 
-export interface Bank {
+export interface InternationalTransferBank {
   id: string;
   name: string;
   country: string;
+  currency: string;
+  exchangeRate: number;
+  commission?: number;
   swiftCode?: string;
-  isInternational: boolean;
+  updatedAt: string;
 }
 
-export interface ExchangeRate {
-  from: string;
-  to: string;
-  rate: number;
-  updatedAt: string;
+export interface InternationalTransferCountry {
+  id: string;
+  name: string;
+  flag: string;
+  currency: string;
+  banks: InternationalTransferBank[];
 }
 
 export type PaymentStep = 'form' | 'summary' | 'biometric' | 'processing' | 'receipt';

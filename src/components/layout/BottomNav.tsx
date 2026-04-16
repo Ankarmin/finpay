@@ -15,7 +15,7 @@ export const BottomNav = () => {
   const navigate = useNavigate();
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-border bg-card safe-bottom">
+    <nav className="fintech-shadow fixed bottom-0 left-1/2 z-50 w-full max-w-lg -translate-x-1/2 border-t border-border bg-card/95 backdrop-blur-md safe-bottom">
       <div className="mx-auto flex max-w-lg items-center justify-around px-2 py-1">
         {navItems.map((item) => {
           const isActive = location.pathname === item.path || 

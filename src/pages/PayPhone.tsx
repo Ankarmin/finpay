@@ -7,7 +7,7 @@ import { ReceiptScreen } from '@/components/fintech/ReceiptScreen';
 import { Button } from '@/components/ui/button';
 import { mockRecipients, mockAccount } from '@/data/mock';
 import type { PaymentStep, PaymentData } from '@/types';
-import { Search, Loader2, User, Star } from 'lucide-react';
+import { Loader2 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const PayPhonePage = () => {
@@ -96,11 +96,10 @@ const PayPhonePage = () => {
   }
 
   return (
-    <AppLayout showNav={false}>
-      <PageHeader title="Pago por celular" subtitle="Envía dinero a un contacto" />
-      <div className="px-4 py-4 mx-auto max-w-lg space-y-4 animate-fade-in">
-        {/* Favorites */}
-        {favorites.length > 0 && (
+      <AppLayout showNav={false}>
+        <PageHeader title="Pago por celular" subtitle="Envía dinero a un contacto" />
+        <div className="px-4 py-4 mx-auto max-w-lg space-y-4 animate-fade-in">
+          {favorites.length > 0 && (
           <div>
             <p className="mb-2 text-xs font-medium text-muted-foreground">Contactos frecuentes</p>
             <div className="flex gap-3 overflow-x-auto pb-1">
@@ -159,7 +158,6 @@ const PayPhonePage = () => {
 
         {error && <p className="text-sm text-destructive">{error}</p>}
 
-        {/* Persistent summary */}
         {(phone || amount) && (
           <PaymentSummary data={{ ...paymentData, description: description || undefined }} compact />
         )}
